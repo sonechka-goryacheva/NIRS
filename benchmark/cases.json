@@ -1,0 +1,22 @@
+[
+  {"query": "как посмотреть размер папки", "expected": "du -sh"},
+  {"query": "сделать файл исполняемым", "expected": "chmod +x"},
+  {"query": "свободное место на дисках", "expected": "df -h"},
+  {"query": "список файлов подробно", "expected": "ls -la"},
+  {"query": "перейти в другую папку", "expected": "cd"},
+  {"query": "текущая папка", "expected": "pwd"},
+  {"query": "копировать файлы", "expected": "cp -r"},
+  {"query": "переместить файл", "expected": "mv"},
+  {"query": "удалить папку", "expected": "rm -rf"},
+  {"query": "создать папку с родителями", "expected": "mkdir -p"},
+  {"query": "создать пустой файл", "expected": "touch"},
+  {"query": "посмотреть содержимое файла", "expected": "cat"},
+  {"query": "постраничный просмотр файла", "expected": "less"},
+  {"query": "первые строки файла", "expected": "head"},
+  {"query": "последние строки файла", "expected": "tail"},
+  {"query": "поиск текста в файлах", "expected": "grep"},
+  {"query": "поиск файлов по имени", "expected": "find"},
+  {"query": "права доступа", "expected": "chmod"},
+  {"query": "смена владельца файла", "expected": "chown"},
+  {"query": "список процессов", "expected": "ps aux"}
+]

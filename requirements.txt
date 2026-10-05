@@ -1,0 +1,6 @@
+rank-bm25
+openai
+python-dotenv
+pymorphy3
+pytest
+pyinstaller
