@@ -9,3 +9,6 @@ build/
 data/users.json
 .pytest_cache/
 .DS_Store
+
+# Данные приложения (не в git)
+data/chats.json

@@ -1,18 +1,23 @@
 # Архитектура
 
-## Общая схема
+## Схема
 
-Пользователь → UI → Search (BM25) → LLM → Ответ
+    Браузер (web/, SPA) ──HTTP /api──▶ FastAPI (app/api.py) ──▶ search (BM25) ──▶ llm ──▶ ответ
+                                           │
+                                           └─▶ auth, data/*.json
 
 ## Модули
 
-- app/ui.py — интерфейс (консоль, позже GUI)
+- web/ — интерфейс: одна страница, hash-роутер, клиент API, мок-сервер (spec/tech/ui_tech.md)
+- app/api.py — HTTP API (spec/tech/api.md) и раздача web/
+- app/auth.py — пользователи, пароли, проверки прав
 - app/search.py — поиск по корпусу через BM25
-- app/llm.py — вызов LLM для формирования ответа
-- app/auth.py — регистрация и вход
-- app/main.py — точка входа
+- app/llm.py — формирование ответа LLM
+- app/ui.py — консольный интерфейс для отладки поиска
+- app/main.py — запуск сервера
 
 ## Данные
 
-- data/corpus/*.json — корпус команд
-- data/users.json — пользователи (не коммитится)
+- data/corpus/*.json — корпус команд (в git)
+- data/users.json — пользователи (не в git)
+- data/chats.json — чаты с владельцем (не в git)
