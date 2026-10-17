@@ -1,0 +1,172 @@
+<svg viewBox="0 0 600 520" class="hero-art" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Иллюстрация: терминал и клавиши"><defs>
+<linearGradient id="kTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8f9de"/><stop offset=".5" stop-color="#87f5cd"/><stop offset="1" stop-color="#67f3d4"/></linearGradient>
+<linearGradient id="kTop2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset="1" stop-color="#e6f8ef" stop-opacity=".85"/></linearGradient>
+<linearGradient id="kSide" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#52cea9"/><stop offset="1" stop-color="#349f82"/></linearGradient>
+<linearGradient id="kSideL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#befaec"/><stop offset="1" stop-color="#94e3d1"/></linearGradient>
+<linearGradient id="pFront" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".55"/><stop offset=".55" stop-color="#d0f2e1" stop-opacity=".32"/><stop offset="1" stop-color="#87f5de" stop-opacity=".30"/></linearGradient>
+<linearGradient id="pEdge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#82f5cb"/><stop offset="1" stop-color="#3fcaac"/></linearGradient>
+<linearGradient id="pScreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#287964" stop-opacity=".78"/><stop offset="1" stop-color="#1d5b4b" stop-opacity=".85"/></linearGradient>
+<radialGradient id="halo" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#8ff6ce" stop-opacity=".55"/><stop offset="1" stop-color="#59f2d6" stop-opacity="0"/></radialGradient>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter>
+<filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter>
+</defs><style>
+.fl{animation:fl 7s ease-in-out infinite}.fl2{animation:fl 7s ease-in-out -2.3s infinite}.fl3{animation:fl 7s ease-in-out -4.6s infinite}
+.cur{animation:bl 1.1s steps(1) infinite}
+@keyframes fl{50%{transform:translateY(-10px)}}@keyframes bl{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.fl,.fl2,.fl3,.cur{animation:none}}
+</style>
+<circle cx="300" cy="250" r="230" fill="url(#halo)"/>
+<g class="fl">
+<ellipse cx="300" cy="283.0" rx="152.0" ry="41.8" fill="#144c3e" opacity=".35" filter="url(#soft)"/>
+<rect transform="translate(0,46) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,45) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,44) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,43) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,42) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,41) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,40) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,39) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,38) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,37) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,36) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,35) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,34) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,33) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,32) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,31) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,30) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,29) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,28) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,27) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,26) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,25) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,24) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,23) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,22) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,21) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,20) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,19) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,18) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,17) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,16) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,15) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,14) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,13) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,12) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,11) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,10) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,9) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,8) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,7) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,6) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,5) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,4) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,3) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,2) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="translate(0,1) matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kSide)"/>
+<rect transform="matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" width="190" height="190" rx="38.0" fill="url(#kTop)"/>
+<rect transform="matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" x="17.099999999999998" y="17.099999999999998" width="155.79999999999998" height="155.79999999999998" rx="28.5" fill="#ffffff" opacity="0.18"/>
+<rect transform="matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" x=".6" y=".6" width="188.8" height="188.8" rx="38.0" fill="none" stroke="#ffffff" stroke-opacity=".6" stroke-width="1.2"/>
+<text transform="matrix(0.866,-0.5,0.866,0.5,135.46,215.00)" x="95.0" y="117.32" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="600" font-size="62" fill="#ffffff">&gt;_</text>
+</g>
+<g class="fl2">
+<ellipse cx="170" cy="414.5" rx="84.0" ry="23.1" fill="#144c3e" opacity=".35" filter="url(#soft)"/>
+<rect transform="translate(0,30) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,29) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,28) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,27) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,26) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,25) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,24) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,23) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,22) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,21) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,20) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,19) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,18) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,17) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,16) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,15) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,14) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,13) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,12) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,11) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,10) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,9) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,8) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,7) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,6) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,5) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,4) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,3) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,2) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="translate(0,1) matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kSideL)"/>
+<rect transform="matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" width="105" height="105" rx="21.0" fill="url(#kTop2)"/>
+<rect transform="matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" x="9.45" y="9.45" width="86.1" height="86.1" rx="15.75" fill="#ffffff" opacity="0.5"/>
+<rect transform="matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" x=".6" y=".6" width="103.8" height="103.8" rx="21.0" fill="none" stroke="#ffffff" stroke-opacity=".6" stroke-width="1.2"/>
+<text transform="matrix(0.866,-0.5,0.866,0.5,79.07,362.50)" x="52.5" y="61.14" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="600" font-size="24" fill="#47bea0">Ctrl</text>
+</g>
+<g class="fl3">
+<ellipse cx="470" cy="397.5" rx="76.0" ry="20.9" fill="#144c3e" opacity=".35" filter="url(#soft)"/>
+<rect transform="translate(0,28) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,27) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,26) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,25) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,24) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,23) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,22) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,21) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,20) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,19) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,18) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,17) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,16) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,15) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,14) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,13) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,12) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,11) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,10) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,9) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,8) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,7) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,6) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,5) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,4) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,3) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,2) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="translate(0,1) matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kSide)"/>
+<rect transform="matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" width="95" height="95" rx="19.0" fill="url(#kTop)"/>
+<rect transform="matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" x="8.549999999999999" y="8.549999999999999" width="77.89999999999999" height="77.89999999999999" rx="14.25" fill="#ffffff" opacity="0.18"/>
+<rect transform="matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" x=".6" y=".6" width="93.8" height="93.8" rx="19.0" fill="none" stroke="#ffffff" stroke-opacity=".6" stroke-width="1.2"/>
+<text transform="matrix(0.866,-0.5,0.866,0.5,387.73,347.50)" x="47.5" y="61.9" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="600" font-size="40" fill="#ffffff">C</text>
+</g>
+<g class="fl">
+<ellipse cx="330" cy="480.0" rx="57.6" ry="15.84" fill="#144c3e" opacity=".35" filter="url(#soft)"/>
+<rect transform="translate(0,22) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,21) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,20) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,19) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,18) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,17) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,16) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,15) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,14) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,13) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,12) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,11) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,10) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,9) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,8) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,7) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,6) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,5) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,4) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,3) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,2) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="translate(0,1) matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kSideL)"/>
+<rect transform="matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" width="72" height="72" rx="14.4" fill="url(#kTop2)"/>
+<rect transform="matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" x="6.4799999999999995" y="6.4799999999999995" width="59.04" height="59.04" rx="10.8" fill="#ffffff" opacity="0.5"/>
+<rect transform="matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" x=".6" y=".6" width="70.8" height="70.8" rx="14.4" fill="none" stroke="#ffffff" stroke-opacity=".6" stroke-width="1.2"/>
+<text transform="matrix(0.866,-0.5,0.866,0.5,267.65,436.00)" x="36.0" y="42.48" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="600" font-size="18" fill="#47bea0">Tab</text>
+</g></svg>
