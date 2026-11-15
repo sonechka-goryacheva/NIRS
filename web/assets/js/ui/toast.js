@@ -1,4 +1,4 @@
-import { h } from "./dom.js?v=202610162235";
+import { h } from "./dom.js?v=202611160100";
 let timer;
 /** Короткое уведомление внизу экрана. kind: "ok" | "error" */
 export function toast(text, kind = "ok") {

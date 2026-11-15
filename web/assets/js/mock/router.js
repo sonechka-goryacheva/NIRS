@@ -1,5 +1,5 @@
 /** Таблица маршрутов мок-сервера: метод + путь с параметрами (:id) → обработчик. */
-import { currentUser } from "./db.js?v=202610162235";
+import { currentUser, db, save } from "./db.js?v=202611160100";
 
 export class HttpError extends Error {
   constructor(status, detail, field = null) { super(detail); this.status = status; this.field = field; }
@@ -11,12 +11,13 @@ const routes = [];
  * @param {string} method
  * @param {string} pattern например "/chats/:id/messages"
  * @param {(ctx: {params, query, body, user}) => any} handler вернуть тело ответа или {status, body}
- * @param {{auth?: boolean, admin?: boolean, status?: number}} opts
+ * @param {{auth?: boolean, member?: boolean, admin?: boolean, status?: number}} opts
+ *   member — только зарегистрированные (гостю 403)
  */
 export function route(method, pattern, handler, opts = {}) {
   const keys = [];
   const re = new RegExp("^" + pattern.replace(/:(\w+)/g, (_, k) => { keys.push(k); return "([^/]+)"; }) + "/?$");
-  routes.push({ method, re, keys, handler, auth: opts.auth ?? true, admin: !!opts.admin, status: opts.status || 200 });
+  routes.push({ method, re, keys, handler, auth: opts.auth ?? true, member: !!opts.member, admin: !!opts.admin, status: opts.status || 200 });
 }
 
 export async function dispatch(method, path, query, body) {
@@ -29,6 +30,8 @@ export async function dispatch(method, path, query, body) {
     const params = Object.fromEntries(r.keys.map((k, i) => [k, decodeURIComponent(m[i + 1])]));
     const user = currentUser();
     if (r.auth && !user) return err(401, "Требуется вход");
+    if (user?.role === "guest") { db().users[user.login].last_active_at = new Date().toISOString(); save(); }
+    if (r.member && user.role === "guest") return err(403, "Доступно после регистрации");
     if (r.admin && user.role !== "admin") return err(403, "Недостаточно прав");
     try {
       const out = await r.handler({ params, query, body: body || {}, user });

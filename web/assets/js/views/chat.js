@@ -1,11 +1,12 @@
 /** Чат: маршруты #/chat и #/chat/:id */
-import { $, h, esc, setTitle } from "../ui/dom.js?v=202610162235";
-import { icon } from "../ui/icons.js?v=202610162235";
-import { commandCard } from "../ui/command-card.js?v=202610162235";
-import { chatsApi } from "../api/index.js?v=202610162235";
-import * as router from "../router.js?v=202610162235";
-import { getCategories } from "./categories.js?v=202610162235";
-import { isMounted, mountShell, refreshChats, setActiveChat, hideOverlay, setActiveNav } from "./shell.js?v=202610162235";
+import { $, h, esc, setTitle } from "../ui/dom.js?v=202611160100";
+import { icon } from "../ui/icons.js?v=202611160100";
+import { commandCard } from "../ui/command-card.js?v=202611160100";
+import { chatsApi } from "../api/index.js?v=202611160100";
+import * as router from "../router.js?v=202611160100";
+import { getCategories } from "./categories.js?v=202611160100";
+import { isMounted, mountShell, refreshChats, setActiveChat, hideOverlay, setActiveNav } from "./shell.js?v=202611160100";
+import { session } from "../session.js?v=202611160100";
 
 const SUGGESTIONS = [
   ["Проблема", "Не хватает прав при запуске скрипта"],
@@ -16,7 +17,13 @@ const SUGGESTIONS = [
 
 let loadedId; // undefined — ничего не загружено, null — новый чат
 let chatTitle = "Новый чат";
-function showTitle(t) { chatTitle = t; const el = $("#chatTitle"); if (el) el.textContent = t; setTitle(t); }
+function showTitle(t) {
+  chatTitle = t;
+  const el = $("#chatTitle"); if (el) el.textContent = t;
+  setTitle(t);
+}
+// Чат переименовали в боковой панели → обновить заголовок, если он открыт
+document.addEventListener("chat:renamed", (e) => { if (e.detail.id === loadedId) showTitle(e.detail.title); });
 let busy = false;
 let loadToken = 0;
 
@@ -68,6 +75,7 @@ function ensureMain() {
     <header class="topbar">
       <button class="icon-btn show-when-closed" data-open-sidebar aria-label="Открыть панель">${icon("panel")}</button>
       <div class="topbar-title" id="chatTitle">Новый чат</div>
+      ${session.isGuest ? '<a class="guest-chip" href="#/register" title="История гостя удалится после выхода"><span class="gc-long">Гостевой режим · </span><u>Зарегистрироваться</u></a>' : ""}
     </header>
     <section class="thread" id="thread" aria-live="polite"><div class="thread-inner" id="threadInner"></div></section>
     <div class="composer-wrap">
@@ -108,7 +116,7 @@ function focusInput() { if (!matchMedia("(max-width: 900px)").matches) $("#q")?.
 
 function renderEmpty(inner) {
   inner.innerHTML = `<div class="empty">
-    <img src="assets/img/logo.svg?v=202610162235" alt="" />
+    <img src="assets/img/logo.svg?v=202611160100" alt="" />
     <h1>Какую команду ищем?</h1>
     <p>Введите запрос — опишите задачу своими словами или вставьте команду, которую нужно объяснить.</p>
     <div class="suggest">${SUGGESTIONS.map(([k, t]) => `<button type="button" data-suggest="${esc(t)}"><span class="eyebrow">${esc(k)}</span>${esc(t)}</button>`).join("")}</div>
@@ -121,7 +129,7 @@ function appendMessage(m) {
     inner.insertAdjacentHTML("beforeend", `<div class="msg-user"><div class="bubble-user">${esc(m.text)}</div></div>`);
     return null;
   }
-  const node = h(`<div class="msg-bot"><img src="assets/img/logo.svg?v=202610162235" alt="" /><div class="bot-body"></div></div>`);
+  const node = h(`<div class="msg-bot"><img src="assets/img/logo.svg?v=202611160100" alt="" /><div class="bot-body"></div></div>`);
   fillReply(node, m.reply);
   inner.appendChild(node);
   return node;

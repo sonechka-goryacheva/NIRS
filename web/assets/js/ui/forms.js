@@ -1,6 +1,6 @@
 /** Поля форм и показ ошибок (в т.ч. ошибок API с полем field). */
-import { $, $$, esc } from "./dom.js?v=202610162235";
-import { icon } from "./icons.js?v=202610162235";
+import { $, $$, esc } from "./dom.js?v=202611160100";
+import { icon } from "./icons.js?v=202611160100";
 
 export function field({ name, label, type = "text", value = "", hint = "", autocomplete = "off", placeholder = "", mono = false, attrs = "" }) {
   const isPass = type === "password";
@@ -29,6 +29,7 @@ export function setFieldError(form, name, msg) {
   if (!f) return false;
   f.classList.toggle("has-error", !!msg);
   const e = $(".field-error", f);
+  if (!e) return false;
   e.textContent = msg || "";
   e.hidden = !msg;
   return true;

@@ -1,14 +1,14 @@
 /** Администрирование: #/admin/commands и #/admin/users (только роль admin — проверяет гард роутера и сервер). */
-import { $, h, esc, formatDate, roleLabel, setTitle } from "../ui/dom.js?v=202610162235";
-import { icon } from "../ui/icons.js?v=202610162235";
-import { openModal, modalHead, confirmDialog } from "../ui/modal.js?v=202610162235";
-import { toast } from "../ui/toast.js?v=202610162235";
-import { field, selectField, setFieldError, clearErrors, formAlert, showApiError, values, busy } from "../ui/forms.js?v=202610162235";
-import { adminApi, datasetApi } from "../api/index.js?v=202610162235";
-import { session } from "../session.js?v=202610162235";
-import { showOverlay, overlayFrame, setActiveNav } from "./shell.js?v=202610162235";
-import { ensureChatBehind } from "./chat.js?v=202610162235";
-import { getCategories, invalidateCategories } from "./categories.js?v=202610162235";
+import { $, h, esc, formatDate, roleLabel, setTitle } from "../ui/dom.js?v=202611160100";
+import { icon } from "../ui/icons.js?v=202611160100";
+import { openModal, modalHead, confirmDialog } from "../ui/modal.js?v=202611160100";
+import { toast } from "../ui/toast.js?v=202611160100";
+import { field, selectField, setFieldError, clearErrors, formAlert, showApiError, values, busy } from "../ui/forms.js?v=202611160100";
+import { adminApi, datasetApi } from "../api/index.js?v=202611160100";
+import { session } from "../session.js?v=202611160100";
+import { showOverlay, overlayFrame, setActiveNav } from "./shell.js?v=202611160100";
+import { ensureChatBehind } from "./chat.js?v=202611160100";
+import { getCategories, invalidateCategories } from "./categories.js?v=202611160100";
 
 const PLATFORMS = ["linux", "mac", "windows", "unix", "cross"];
 const ROLE_OPTIONS = [["user", "Пользователь"], ["admin", "Администратор"]];
@@ -26,12 +26,14 @@ export async function adminCommandsView({ query }) {
   await ensureChatBehind();
   setActiveNav("/admin/commands");
   setTitle("Команды — администрирование");
-  const cats = await getCategories();
+  const cats = (await getCategories()).filter((c) => !c.personal); // личные команды здесь не редактируются
   let cat = cats.some((c) => c.key === query.category) ? query.category : cats[0].key;
   let cmds = [];
   let selected = null; // null — новая команда
 
-  const node = overlayFrame({ cls: "modal-admin", head: tabs("commands"), body: `
+  // Пришли из датасета («Редактировать») — слева в шапке «Назад» туда же
+  const back = typeof query.from === "string" && query.from.startsWith("/dataset") ? query.from : null;
+  const node = overlayFrame({ cls: "modal-admin", back, head: tabs("commands"), body: `
     <div class="admin-grid">
       <div class="admin-side">
         <select class="select" id="adCat" aria-label="Категория">${cats.map((c) => `<option value="${c.key}"${c.key === cat ? " selected" : ""}>${esc(c.label)} · ${c.count}</option>`).join("")}</select>
@@ -62,7 +64,9 @@ export async function adminCommandsView({ query }) {
   function drawForm() {
     const c = selected || { name: "", command: "", description: "", examples: ["", "", ""], tags: [], platform: "cross", category: cat };
     form.innerHTML = `
-      <div class="form-title"><span class="eyebrow">${selected ? "Редактирование" : "Новая команда"}</span>${selected ? `<span class="chip chip-mono">${esc(selected.id)}</span>` : ""}</div>
+      <div class="form-title"><span class="eyebrow">${selected ? "Редактирование" : "Новая команда"}</span>${selected ? `<span class="form-title-meta">
+        <a class="btn btn-ghost btn-sm" href="#/dataset/${encodeURIComponent(selected.category)}/${encodeURIComponent(selected.id)}">${icon("book")}В справочнике</a>
+        <span class="chip chip-mono">${esc(selected.id)}</span></span>` : ""}</div>
       <div class="alert form-alert" hidden></div>
       <div class="form-grid">
         ${field({ name: "name", label: "Название", value: c.name })}
@@ -115,11 +119,11 @@ export async function adminCommandsView({ query }) {
   async function refreshCounts() {
     invalidateCategories();
     const fresh = await getCategories();
-    $("#adCat", node).innerHTML = fresh.map((c) => `<option value="${c.key}"${c.key === cat ? " selected" : ""}>${esc(c.label)} · ${c.count}</option>`).join("");
+    $("#adCat", node).innerHTML = fresh.filter((c) => !c.personal).map((c) => `<option value="${c.key}"${c.key === cat ? " selected" : ""}>${esc(c.label)} · ${c.count}</option>`).join("");
   }
 
   async function remove() {
-    if (!(await confirmDialog({ title: "Удалить команду?", text: `«${selected.name}» будет удалена из датасета.` }))) return;
+    if (!(await confirmDialog({ title: "Удалить команду?", text: `«${selected.name}» будет удалена из справочника.` }))) return;
     try {
       await adminApi.commands.remove(selected.id);
       await refreshCounts();
@@ -135,7 +139,7 @@ export async function adminCommandsView({ query }) {
   filter.addEventListener("input", drawList);
   $("#adNew", node).addEventListener("click", () => { selected = null; drawList(); drawForm(); $("#f-name", form).focus(); });
   $("#adCat", node).addEventListener("change", (e) => { cat = e.target.value; filter.value = ""; load(); });
-  await load();
+  await load(query.id); // переход «Редактировать» из датасета — сразу нужная команда
 }
 
 /* ============================ Пользователи ============================ */
@@ -152,10 +156,10 @@ export async function adminUsersView() {
       <button type="button" class="btn btn-primary" id="uNew">${icon("userPlus")}Создать</button>
     </div>
     <div class="table-wrap"><table class="table">
-      <thead><tr><th>Логин</th><th>Роль</th><th>Регистрация</th><th>Последний вход</th><th>Чатов</th><th></th></tr></thead>
-      <tbody id="uRows"><tr><td colspan="6" class="nothing">Загрузка…</td></tr></tbody>
+      <thead><tr><th>Логин</th><th>Роль</th><th></th></tr></thead>
+      <tbody id="uRows"><tr><td colspan="3" class="nothing">Загрузка…</td></tr></tbody>
     </table></div>
-    <p class="field-hint">Свою учётную запись нельзя удалить или понизить. В системе всегда остаётся хотя бы один администратор.</p>` });
+    <p class="field-hint">Подробности об учётной записи — в «Изменить». Свою учётную запись нельзя удалить или понизить. В системе всегда остаётся хотя бы один администратор.</p>` });
   showOverlay(node, { size: "wide" });
 
   const q = $("#uQ", node), roleSel = $("#uRole", node), rows = $("#uRows", node);
@@ -166,7 +170,7 @@ export async function adminUsersView() {
     try {
       users = await adminApi.users.list({ q: q.value.trim(), role: roleSel.value });
       draw();
-    } catch (err) { rows.innerHTML = `<tr><td colspan="6" class="nothing">${esc(err.message)}</td></tr>`; }
+    } catch (err) { rows.innerHTML = `<tr><td colspan="3" class="nothing">${esc(err.message)}</td></tr>`; }
   }
   function draw() {
     rows.innerHTML = users.length ? users.map((u) => {
@@ -174,14 +178,11 @@ export async function adminUsersView() {
       return `<tr>
         <td><b>${esc(u.login)}</b>${self ? ' <span class="chip">вы</span>' : ""}<span class="role-inline">${roleLabel(u.role)}</span></td>
         <td><span class="chip ${u.role === "admin" ? "chip-accent" : ""}">${roleLabel(u.role)}</span></td>
-        <td class="muted">${formatDate(u.created_at)}</td>
-        <td class="muted">${u.last_login_at ? formatDate(u.last_login_at) : "не входил"}</td>
-        <td class="muted">${u.chats_count}</td>
         <td class="actions">
           <button type="button" class="btn btn-ghost btn-sm" data-edit="${esc(u.login)}" aria-label="Изменить ${esc(u.login)}">${icon("edit")}<span class="btn-label">Изменить</span></button>
           <button type="button" class="btn btn-danger btn-sm" data-del="${esc(u.login)}" aria-label="Удалить ${esc(u.login)}"${self ? ' disabled title="Нельзя удалить себя"' : ""}>${icon("trash")}</button>
         </td></tr>`;
-    }).join("") : '<tr><td colspan="6" class="nothing">Никого не найдено</td></tr>';
+    }).join("") : '<tr><td colspan="3" class="nothing">Никого не найдено</td></tr>';
   }
 
   q.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(load, 250); });
@@ -206,6 +207,12 @@ function userDialog(user, onDone) {
   const self = user && user.login === session.user.login;
   const node = h(`<div class="modal glass" role="dialog" aria-modal="true">
     ${modalHead(user ? user.login : "Новый пользователь", user ? "Изменить пользователя" : "Пользователи")}
+    ${user ? `<dl class="kv user-kv">
+      <dt>Регистрация</dt><dd>${formatDate(user.created_at)}</dd>
+      <dt>Последний вход</dt><dd>${user.last_login_at ? formatDate(user.last_login_at) : "не входил"}</dd>
+      <dt>Чатов</dt><dd>${user.chats_count}</dd>
+      <dt>Своих команд</dt><dd>${user.my_commands_count ?? 0}</dd>
+    </dl>` : ""}
     <form novalidate>
       <div class="alert form-alert" hidden></div>
       ${user ? "" : field({ name: "login", label: "Логин", hint: "От 3 до 32 символов, без пробелов", autocomplete: "off" })}

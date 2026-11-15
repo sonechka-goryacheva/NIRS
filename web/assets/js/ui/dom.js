@@ -27,7 +27,7 @@ export function formatDate(iso) {
   return `${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 
-export const roleLabel = (role) => (role === "admin" ? "Администратор" : "Пользователь");
+export const roleLabel = (role) => ({ admin: "Администратор", guest: "Гость" }[role] || "Пользователь");
 
 /** Заголовок вкладки: «<раздел> — Справочник IT-команд». */
 export function setTitle(part) {

@@ -1,8 +1,11 @@
 /** Кэш категорий (нужны в датасете, админке и подписях карточек). */
-import { datasetApi } from "../api/index.js?v=202610162235";
-import { setCategoryLabels } from "../ui/command-card.js?v=202610162235";
+import { datasetApi } from "../api/index.js?v=202611160100";
+import { setCategoryLabels } from "../ui/command-card.js?v=202611160100";
+import { session } from "../session.js?v=202611160100";
 
 let cache = null;
+// Набор категорий зависит от пользователя («Мои команды» есть только у зарегистрированных)
+session.onChange(() => { cache = null; });
 export async function getCategories({ fresh = false } = {}) {
   if (!cache || fresh) {
     cache = await datasetApi.categories();

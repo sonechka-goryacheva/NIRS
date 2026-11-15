@@ -1,16 +1,16 @@
 /** Страница «не найдено» для неизвестных адресов. */
-import { $, setTitle } from "../ui/dom.js?v=202610162235";
-import { session } from "../session.js?v=202610162235";
-import { unmount } from "./shell.js?v=202610162235";
-import { resetChatState } from "./chat.js?v=202610162235";
+import { $, setTitle } from "../ui/dom.js?v=202611160100";
+import { session } from "../session.js?v=202611160100";
+import { unmount } from "./shell.js?v=202611160100";
+import { resetChatState } from "./chat.js?v=202611160100";
 
 export function notFoundView() {
   unmount();
   resetChatState();
-  document.body.className = "theme-light page-app";
+  document.body.className = "page-app";
   setTitle("Страница не найдена");
   $("#app").innerHTML = `<main class="center-page"><div class="glass center-card">
-    <img src="assets/img/logo.svg?v=202610162235" alt="" width="56" height="56" />
+    <img src="assets/img/logo.svg?v=202611160100" alt="" width="56" height="56" />
     <div class="eyebrow">Ошибка 404</div>
     <h1>Страница не найдена</h1>
     <p>Проверьте адрес или вернитесь в справочник.</p>

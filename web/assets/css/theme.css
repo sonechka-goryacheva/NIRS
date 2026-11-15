@@ -1,8 +1,9 @@
 /* =========================================================
    Справочник IT-команд — дизайн-система (мятная палитра)
    Все цвета, тени и радиусы — только через токены ниже.
-   :root          — тёмная изумрудная тема (вход, регистрация)
-   .theme-light   — светлая мятная тема (приложение после входа)
+   :root, [data-theme="dark"] — тёмная изумрудная тема
+   [data-theme="light"]       — светлая мятная тема
+   Тему выбирает пользователь (assets/js/theme.js): светлая, тёмная или как в системе.
    ========================================================= */
 
 :root {
@@ -72,6 +73,8 @@
   --focus-ring: 0 0 0 0.1875rem rgba(121, 244, 205, 0.45);
   --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23bbe2d6' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
 
+  --x-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E");
+
   /* Тени */
   --shadow-card: 0 1.875rem 5rem -1.25rem rgba(4, 20, 16, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   --shadow-soft: 0 0.875rem 1.875rem -0.875rem rgba(4, 20, 16, 0.6);
@@ -89,7 +92,7 @@
   color-scheme: dark;
 }
 
-.theme-light {
+[data-theme="light"] {
   --bg-0: #f1faf6;
   --bg-1: #e9f6f0;
   --bg-2: #f4fbf8;
@@ -261,6 +264,49 @@ code, kbd, pre, .mono { font-family: var(--mono); }
 .field.has-error .input, .field.has-error .textarea { border-color: var(--danger); }
 .field-hint { font-size: 0.8125rem; color: var(--text-3); }
 .field-error { font-size: 0.8125rem; color: var(--danger); }
+/* Поле поиска: свой крестик очистки вместо системного */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none; appearance: none; width: 1rem; height: 1rem; cursor: pointer;
+  background: var(--text-3);
+  -webkit-mask: var(--x-mask) center / contain no-repeat; mask: var(--x-mask) center / contain no-repeat;
+}
+input[type="search"]::-webkit-search-cancel-button:hover { background: var(--text-1); }
+/* Автозаполнение браузера не перекрашивает поле в системный жёлтый/голубой */
+.input:-webkit-autofill, .input:-webkit-autofill:hover, .input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-1);
+  -webkit-box-shadow: 0 0 0 100rem var(--field) inset;
+  caret-color: var(--text-1);
+  transition: background-color 9999s;
+}
+
+/* ---------- Выпадающий список (ui/select.js) вместо системного меню ---------- */
+.cselect { position: relative; min-width: 0; }
+.cselect-native { position: absolute !important; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
+.cselect-btn {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+  background-image: none !important; padding-right: 0.75rem !important; text-align: left; cursor: pointer;
+}
+.cselect-btn:disabled { opacity: .55; cursor: not-allowed; }
+.cselect-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cselect-btn svg { width: 1rem; height: 1rem; flex: none; color: var(--text-3); transition: transform .15s; }
+.cselect-btn.is-open { border-color: var(--accent); box-shadow: var(--focus-ring); }
+.cselect-btn.is-open svg { transform: rotate(180deg); }
+.cselect-pop {
+  position: fixed; z-index: 95; overflow-y: auto; max-width: calc(100vw - 1rem);
+  padding: 0.3125rem; border-radius: var(--r-sm);
+  background: var(--menu-bg); border: 1px solid var(--glass-border-strong);
+  box-shadow: var(--shadow-card);
+  animation: pop-in .12s ease-out;
+}
+.cselect-opt {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  padding: 0.5rem 0.625rem; border-radius: 0.5rem; cursor: pointer; color: var(--text-1); font-size: 0.9375rem; white-space: nowrap;
+}
+.cselect-opt.is-active { background: var(--tint-2); }
+.cselect-opt.is-selected { color: var(--accent-text); font-weight: 500; }
+.cselect-opt svg { width: 1rem; height: 1rem; flex: none; }
+@keyframes pop-in { from { opacity: 0; transform: translateY(-0.25rem); } }
+
 .input-wrap { position: relative; }
 .input-wrap .input { padding-right: 2.875rem; }
 .input-wrap .icon-btn { position: absolute; right: 0.3125rem; top: 0.3125rem; }

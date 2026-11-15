@@ -1,21 +1,73 @@
 /* =========================================================
-   Вход и регистрация (тёмная изумрудная тема :root)
-   Карточка — светлое «стёклышко»; кнопка и ссылки спокойные,
-   чтобы внимание было на полях формы.
+   Вход, регистрация, восстановление пароля.
+   Карточка — «стёклышко» поверх фона темы; свои переменные --card-*
+   для тёмной (по умолчанию) и светлой темы.
    ========================================================= */
 
 .page-auth {
-  /* Белое стекло карточки */
+  /* Тёмная тема: белое стекло на изумрудном фоне */
   --card-bg: linear-gradient(145deg, rgba(255, 255, 255, .22) 0%, rgba(255, 255, 255, .10) 45%, rgba(255, 255, 255, .06) 100%);
   --card-border: rgba(255, 255, 255, .42);
+  --card-text-1: #ffffff;
   --card-text-2: rgba(243, 252, 248, .85);
   --card-text-3: rgba(232, 248, 240, .65);
   --card-field: rgba(255, 255, 255, .12);
   --card-field-hover: rgba(255, 255, 255, .45);
   --card-field-border: rgba(255, 255, 255, .28);
   --card-field-focus: rgba(255, 255, 255, .18);
+  --card-field-focus-border: rgba(255, 255, 255, .7);
+  --card-field-ring: 0 0 0 0.1875rem rgba(255, 255, 255, .18);
   --card-line: rgba(255, 255, 255, .40);
+  --card-glare: rgba(255, 255, 255, .16);
   --card-shadow: 0 1.875rem 5rem -1.5rem rgba(4, 20, 16, .55), inset 0 1px 0 rgba(255, 255, 255, .55);
+  --card-link: rgba(255, 255, 255, .88);
+  --card-link-line: rgba(255, 255, 255, .3);
+  --card-link-hover: #ffffff;
+  --card-btn: rgba(255, 255, 255, .12);
+  --card-btn-border: rgba(255, 255, 255, .34);
+  --card-btn-hover: rgba(214, 250, 236, .30);
+  --card-btn-hover-border: rgba(230, 255, 245, .70);
+  --card-btn-active: rgba(225, 252, 242, .42);
+  --card-btn-text: #ffffff;
+  --card-btn-inset: inset 0 1px 0 rgba(255, 255, 255, .18);
+  --card-btn-glow: 0 0.5rem 1.5rem -0.75rem rgba(156, 242, 212, .55);
+  --chip-glass: rgba(255, 255, 255, .14);
+  --chip-glass-border: rgba(255, 255, 255, .38);
+  --chip-glass-text: #ffffff;
+  --art-shadow: rgba(4, 20, 16, .35);
+}
+
+[data-theme="light"] .page-auth {
+  /* Светлая тема: молочное стекло на мятном фоне, тёмный текст */
+  --card-bg: linear-gradient(145deg, rgba(255, 255, 255, .86) 0%, rgba(255, 255, 255, .68) 55%, rgba(255, 255, 255, .58) 100%);
+  --card-border: rgba(31, 169, 138, .22);
+  --card-text-1: #13302a;
+  --card-text-2: #3e5c54;
+  --card-text-3: #5d7a72;
+  --card-field: rgba(255, 255, 255, .85);
+  --card-field-hover: rgba(31, 169, 138, .45);
+  --card-field-border: rgba(31, 169, 138, .26);
+  --card-field-focus: #ffffff;
+  --card-field-focus-border: #0f8f72;
+  --card-field-ring: 0 0 0 0.1875rem rgba(31, 169, 138, .22);
+  --card-line: rgba(31, 169, 138, .35);
+  --card-glare: rgba(255, 255, 255, .5);
+  --card-shadow: 0 1.875rem 4.5rem -1.75rem rgba(20, 70, 55, .28), inset 0 1px 0 rgba(255, 255, 255, .9);
+  --card-link: #0f7d64;
+  --card-link-line: rgba(15, 125, 100, .35);
+  --card-link-hover: #13302a;
+  --card-btn: linear-gradient(135deg, #12a07c 0%, #0b7363 100%);
+  --card-btn-border: transparent;
+  --card-btn-hover: linear-gradient(135deg, #15ad87 0%, #0d806e 100%);
+  --card-btn-hover-border: transparent;
+  --card-btn-active: linear-gradient(135deg, #0f9373 0%, #0a6a5b 100%);
+  --card-btn-text: #ffffff;
+  --card-btn-inset: 0 0.5rem 1.375rem -0.75rem rgba(15, 120, 95, .55);
+  --card-btn-glow: 0 0.625rem 1.5rem -0.75rem rgba(15, 120, 95, .6);
+  --chip-glass: rgba(255, 255, 255, .72);
+  --chip-glass-border: rgba(31, 169, 138, .28);
+  --chip-glass-text: #13302a;
+  --art-shadow: rgba(20, 90, 72, .22);
 }
 
 .auth-stage {
@@ -24,13 +76,14 @@
   padding: 2.5rem 1rem;
   overflow: hidden;
 }
-.auth-wrap { position: relative; width: min(61.25rem, 100%); display: flex; align-items: center; }
+.auth-wrap { position: relative; width: min(64rem, 100%); display: flex; align-items: center; }
 
 .auth-card {
   position: relative; z-index: 2;
   width: 27.5rem; flex: none;
   padding: 2.75rem 2.75rem 2.25rem;
   border-radius: 1.75rem;
+  color: var(--card-text-1);
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   box-shadow: var(--card-shadow);
@@ -39,81 +92,106 @@
 }
 .auth-card::after { /* блик в левом верхнем углу */
   content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background: radial-gradient(120% 60% at 0% 0%, rgba(255, 255, 255, .16), transparent 60%);
+  background: radial-gradient(120% 60% at 0% 0%, var(--card-glare), transparent 60%);
 }
+.auth-card > * { position: relative; z-index: 1; }
 .auth-card .eyebrow { color: var(--card-text-3); }
 .auth-title { margin: 0.875rem 0 0.625rem; font-size: 2.75rem; line-height: 1.08; font-weight: 500; letter-spacing: -0.025em; }
 .auth-lead { margin: 0 0 1.625rem; color: var(--card-text-2); max-width: 30ch; }
 
 .auth-card .label { color: var(--card-text-2); }
 .auth-card .field-hint { color: var(--card-text-3); }
-.auth-card .field-error { color: var(--alert-error-text); }
-.auth-card .input { background: var(--card-field); border-color: var(--card-field-border); color: #ffffff; }
+.auth-card .field-error { color: var(--danger); }
+.auth-card .input { background: var(--card-field); border-color: var(--card-field-border); color: var(--card-text-1); }
 .auth-card .input::placeholder { color: var(--card-text-3); }
 .auth-card .input:hover { border-color: var(--card-field-hover); }
-.auth-card .input:focus { background: var(--card-field-focus); border-color: rgba(255, 255, 255, .7); box-shadow: 0 0 0 0.1875rem rgba(255, 255, 255, .18); }
+.auth-card .input:focus { background: var(--card-field-focus); border-color: var(--card-field-focus-border); box-shadow: var(--card-field-ring); }
 .auth-card .icon-btn { color: var(--card-text-2); }
 
-/* Кнопка — полупрозрачная, в тон карточке */
+/* Главная кнопка — в тон карточке */
 .auth-form .btn-primary {
   margin-top: 1.375rem; height: 3rem;
-  background: rgba(255, 255, 255, .12); color: #ffffff; font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, .34);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18);
+  background: var(--card-btn); color: var(--card-btn-text); font-weight: 500;
+  border: 1px solid var(--card-btn-border);
+  box-shadow: var(--card-btn-inset);
   backdrop-filter: blur(0.5rem); -webkit-backdrop-filter: blur(0.5rem);
 }
-/* Наведение и нажатие — та же кнопка, только светлее */
 .auth-form .btn-primary:hover {
-  background: rgba(214, 250, 236, .30); border-color: rgba(230, 255, 245, .70); color: #ffffff; filter: none;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), 0 0.5rem 1.5rem -0.75rem rgba(156, 242, 212, .55);
+  background: var(--card-btn-hover); border-color: var(--card-btn-hover-border); color: var(--card-btn-text); filter: none;
+  box-shadow: var(--card-btn-inset), var(--card-btn-glow);
 }
-.auth-form .btn-primary:active {
-  background: rgba(225, 252, 242, .42); border-color: rgba(240, 255, 249, .85);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4); transform: translateY(1px);
-}
-.auth-form .btn-primary:focus-visible { box-shadow: 0 0 0 0.1875rem rgba(255, 255, 255, .35); }
-.auth-form .btn-primary:disabled { background: rgba(255, 255, 255, .08); opacity: .6; }
+.auth-form .btn-primary:active { background: var(--card-btn-active); transform: translateY(1px); }
+.auth-form .btn-primary:focus-visible { box-shadow: var(--card-field-ring); }
+.auth-form .btn-primary:disabled { opacity: .6; }
 .auth-form .form-alert { margin-bottom: 1rem; }
+
+/* Вторая кнопка: «Продолжить без регистрации» */
+.auth-guest {
+  margin-top: 0.75rem; width: 100%; height: 2.75rem;
+  background: transparent; color: var(--card-text-2);
+  border: 1px solid var(--card-field-border); border-radius: var(--r-sm);
+  font-weight: 500; cursor: pointer; transition: border-color .15s, color .15s, background .15s;
+}
+.auth-guest:hover { color: var(--card-text-1); border-color: var(--card-field-hover); background: var(--card-field); }
 
 /* Ссылки — тонкие, подчёркнутые */
 .auth-foot a, .auth-card .btn-text {
-  color: rgba(255, 255, 255, .88); font-weight: 400; font-size: 0.9375rem;
-  text-decoration: underline; text-decoration-color: rgba(255, 255, 255, .3); text-underline-offset: 0.2em;
+  color: var(--card-link); font-weight: 400; font-size: 0.9375rem;
+  text-decoration: underline; text-decoration-color: var(--card-link-line); text-underline-offset: 0.2em;
 }
-.auth-foot a:hover, .auth-card .btn-text:hover { color: #ffffff; text-decoration-color: rgba(255, 255, 255, .7); }
+.auth-foot a:hover, .auth-card .btn-text:hover { color: var(--card-link-hover); text-decoration-color: currentColor; }
 .auth-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; font-size: 0.9375rem; color: var(--card-text-3); }
 
 .auth-lines { margin: 1.625rem 0 1.125rem; display: grid; gap: 0.625rem; }
 .auth-lines span { display: block; height: 1px; background: linear-gradient(90deg, var(--card-line), transparent 75%); }
 .auth-lines span:first-child { width: 72%; }
 
-/* ---------- Иллюстрация: клавиши (assets/img/auth-keys.svg) ---------- */
+/* Переключатель темы в углу страницы входа */
+.theme-fab {
+  position: fixed; top: 1rem; right: 1rem; z-index: 20;
+  width: 2.75rem; height: 2.75rem; border-radius: 0.875rem;
+  background: var(--chip-glass); border: 1px solid var(--chip-glass-border); color: var(--chip-glass-text);
+  backdrop-filter: blur(0.75rem); -webkit-backdrop-filter: blur(0.75rem);
+}
+.theme-fab:hover { background: var(--chip-glass); border-color: var(--card-field-hover); color: var(--chip-glass-text); }
+
+/* ---------- Иллюстрация: клавиши (assets/img/auth-keys.svg) ----------
+   Сдвинута вправо от карточки: даже в верхней точке «парения» клавиши
+   и плашки команд не заходят на окно входа (зазор ≥ 1.5rem). */
 .auth-art {
-  position: absolute; z-index: 3;
-  left: 19.6875rem; top: 50%; transform: translateY(-50%);
+  position: absolute; z-index: 1;
+  left: 24rem; top: 50%; transform: translateY(-50%);
   width: 37.5rem; height: 32.5rem;
   pointer-events: none;
 }
 .hero-slot, .hero-art { position: absolute; inset: 0; width: 100%; height: 100%; }
-.hero-art { overflow: visible; filter: drop-shadow(0 1.875rem 2.5rem rgba(4, 20, 16, .35)); }
+.hero-art { overflow: visible; filter: drop-shadow(0 1.875rem 2.5rem var(--art-shadow)); }
 .float-chip {
   position: absolute; z-index: 3;
   padding: 0.5rem 0.75rem; border-radius: var(--r-sm);
-  font-family: var(--mono); font-size: 0.875rem; color: #ffffff;
-  background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .38);
+  font-family: var(--mono); font-size: 0.875rem; color: var(--chip-glass-text);
+  background: var(--chip-glass); border: 1px solid var(--chip-glass-border);
   backdrop-filter: blur(0.75rem); -webkit-backdrop-filter: blur(0.75rem);
   box-shadow: var(--shadow-soft);
   animation: chip-float 7s ease-in-out infinite;
 }
 .float-chip b { color: var(--accent-text); font-weight: 500; }
-.float-chip.c1 { right: 0.625rem; top: 2.5rem; }
-.float-chip.c2 { right: -2.5rem; bottom: 3.75rem; animation-delay: -2.5s; }
+.float-chip.c1 { right: 1.5rem; top: 2.5rem; }
+.float-chip.c2 { right: -0.5rem; bottom: 3.75rem; animation-delay: -2.5s; }
 .float-chip.c3 { left: 14.375rem; bottom: -0.625rem; animation-delay: -4.5s; }
 @keyframes chip-float { 50% { transform: translateY(-0.5rem); } }
 
+/* ---------- Окно «Сохраните код восстановления» ---------- */
+.recovery-code {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  margin: 1rem 0 0.5rem; padding: 0.875rem 1rem; border-radius: var(--r-sm);
+  background: var(--code-bg); border: 1px dashed var(--glass-border-strong);
+  font-family: var(--mono); font-size: 1.25rem; letter-spacing: .08em; color: var(--text-code);
+}
+
 /* ---------- Адаптив ---------- */
-@media (max-width: 960px) {
-  .auth-stage { padding-top: 2rem; align-items: start; }
+@media (max-width: 1060px) {
+  .auth-stage { padding-top: 4rem; align-items: start; }
   .auth-wrap { justify-content: center; }
   .auth-art { display: none; }
   .auth-card { width: 100%; max-width: 27.5rem; padding: 2.25rem 1.625rem 1.75rem; }

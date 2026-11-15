@@ -10,16 +10,24 @@
   <link rel="alternate icon" href="favicon.ico?v=1" sizes="16x16 32x32 48x48 64x64" />
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png?v=1" />
   <meta name="theme-color" content="#0c2a26" />
+  <!-- Тема до загрузки стилей, чтобы страница не мигала (подробно — assets/js/theme.js) -->
+  <script>
+    (function () {
+      var m = "system"; try { m = localStorage.getItem("nirs.theme") || "system"; } catch (e) {}
+      var dark = m === "dark" || (m !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.dataset.theme = dark ? "dark" : "light";
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/theme.css?v=202610162235" />
-  <link rel="stylesheet" href="assets/css/auth.css?v=202610162235" />
-  <link rel="stylesheet" href="assets/css/app.css?v=202610162235" />
+  <link rel="stylesheet" href="assets/css/theme.css?v=202611160100" />
+  <link rel="stylesheet" href="assets/css/auth.css?v=202611160100" />
+  <link rel="stylesheet" href="assets/css/app.css?v=202611160100" />
 </head>
 <body class="page-auth">
   <div id="app"></div>
   <noscript>Для работы справочника нужен JavaScript.</noscript>
-  <script type="module" src="assets/js/main.js?v=202610162235"></script>
+  <script type="module" src="assets/js/main.js?v=202611160100"></script>
 </body>
 </html>

@@ -10,32 +10,37 @@
       serve.py                   сервер для разработки (без кэша, порт 8080)
       tools/bump_version.py      проставляет ?v=<версия> ко всем своим файлам
       assets/css/theme.css       токены и общие компоненты (spec/product/design.md)
-      assets/css/auth.css        вход и регистрация (тёмная тема)
-      assets/css/app.css         приложение (светлая тема)
+      assets/css/auth.css        вход и регистрация (обе темы)
+      assets/css/app.css         приложение (обе темы)
       assets/img/logo.svg        логотип, аватар ответов
       assets/img/apple-touch-icon.png  иконка для телефона
       assets/img/auth-keys.svg   иллюстрация входа
       assets/js/
         config.js                apiBase, useMock
+        theme.js                 тема: system | light | dark, localStorage nirs.theme → <html data-theme>
         main.js                  маршруты, права на маршруты, старт
         router.js                hash-роутер с параметрами и гардом
         session.js               текущий пользователь (из GET /auth/me)
         api/http.js              единственный fetch, ApiError, обработка 401
         api/index.js             все ручки + JSDoc-типы ответов
-        ui/                      dom, icons, modal, forms, toast, command-card
-        views/                   auth, shell, chat, dataset, profile, admin, errors
+        ui/                      dom, icons, modal, forms, toast, command-card,
+                                 select (свой выпадающий список), theme-toggle (кнопка солнце/луна)
+        views/                   auth, shell, chat, dataset, my-dataset, learn, profile, admin, errors
         mock/                    мок-сервер (удаляется при интеграции)
 
 ## Маршруты
 
 | Адрес | Экран | Доступ |
 |---|---|---|
-| `#/login`, `#/register` | вход / регистрация | только гость (вошедшего → `#/chat`) |
-| `#/chat` | новый чат | user, admin |
-| `#/chat/:id` | чат из истории | user, admin (только свой) |
-| `#/dataset` → `/:category` → `/:category/:id` | датасет поверх чата | user, admin |
-| `#/profile` | профиль поверх чата | user, admin |
-| `#/admin/commands`, `#/admin/users` | администрирование поверх чата | admin |
+| `#/login`, `#/register` | вход / регистрация | без входа и guest (user/admin → `#/chat`) |
+| `#/chat` | новый чат | guest, user, admin |
+| `#/chat/:id` | чат из истории | guest, user, admin (только свой) |
+| `#/dataset` → `/:category` → `/:category/:id` | датасет поверх чата | guest, user, admin |
+| `#/dataset/my`, `#/dataset/my/:id` | свой датасет | user, admin (гостю — «Доступно после регистрации») |
+| `#/profile` | профиль поверх чата | guest, user, admin |
+| `#/learn`, `#/learn/:topic?size=10\|all`, `?mode=mistakes` | обучение: темы, тест, повтор ошибок | guest, user, admin |
+| `#/admin/commands?category=&id=&from=` | редактирование команды (id — сразу открыть её форму, from — адрес для «Назад») | admin |
+| `#/admin/users` | пользователи | admin |
 | любой другой | 404 | все |
 
 Гость на закрытом адресе → `#/login?next=<адрес>`, после входа возвращается туда.
@@ -55,11 +60,14 @@
 - `index.js` — перехват fetch, задержка 200–600 мс (чат — 900 мс), лог `[mock] METHOD /api/... → код` в консоли.
 - `router.js` — таблица маршрутов, проверка сессии и роли.
 - `handlers.js` — обработчики всех ручек api.md с проверками и текстами ошибок.
-- `db.js` — данные в localStorage: пользователи, команды, чаты, сессия.
+- `db.js` — данные в localStorage: пользователи (с кодами восстановления), команды, личные команды, чаты, сессия.
+  Сессия гостя — в sessionStorage (как cookie без срока: живёт до закрытия вкладки). Старые сохранённые данные
+  дополняются до новой схемы без сброса (`migrate`).
 - `search.js` — упрощённый поиск, чтобы ответы были правдоподобными.
 - `corpus.js` — копия data/corpus.
 
 Демо-учётки: admin / admin123, m.sokolova / admin456 (admin), demo / demo123, ivan.petrov / qwerty12.
+Коды восстановления демо-учёток — в README (`mock/db.js`, `SEED_CODES`).
 В консоли браузера: `mockServer.reset()` — сбросить данные, `mockServer.db` — посмотреть.
 
 ## Кэш браузера
@@ -83,4 +91,7 @@
 - Данные в HTML — только через `esc()`. HTML из ответов сервера не вставляется.
 - Цвета и размеры — только токены из theme.css.
 - Без `alert/confirm/prompt` — `confirmDialog` и `openModal` из `ui/modal.js`.
+- `<select class="select">` пишем как обычно: `ui/select.js` сам подключает к нему список в стиле темы
+  (родной select скрыт, но остаётся источником значения, `change` и `disabled`).
+- Тема — только через токены; новые цвета добавляются в обе темы theme.css.
 - Проверка в браузере (поля формы) дублирует серверную только для скорости: доверяем серверу.
