@@ -2,12 +2,12 @@
  * Личный датасет («Мои команды», категория my): загрузка JSON/CSV, шаблоны, правка и удаление.
  * Файл читается в браузере, на сервер уходит массив команд (POST /my/commands/import) — сервер проверяет каждую.
  */
-import { $, h, esc, plural } from "../ui/dom.js?v=202611160100";
-import { icon } from "../ui/icons.js?v=202611160100";
-import { openModal, modalHead, confirmDialog } from "../ui/modal.js?v=202611160100";
-import { toast } from "../ui/toast.js?v=202611160100";
-import { field, selectField, setFieldError, clearErrors, formAlert, showApiError, values, busy } from "../ui/forms.js?v=202611160100";
-import { myCommandsApi } from "../api/index.js?v=202611160100";
+import { $, h, esc, plural } from "../ui/dom.js?v=202611160130";
+import { icon } from "../ui/icons.js?v=202611160130";
+import { openModal, modalHead, confirmDialog } from "../ui/modal.js?v=202611160130";
+import { toast } from "../ui/toast.js?v=202611160130";
+import { field, selectField, setFieldError, clearErrors, formAlert, showApiError, values, busy } from "../ui/forms.js?v=202611160130";
+import { myCommandsApi } from "../api/index.js?v=202611160130";
 
 export const MY = "my";
 const PLATFORMS = ["cross", "linux", "mac", "windows", "unix"];

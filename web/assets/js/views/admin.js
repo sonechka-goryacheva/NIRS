@@ -1,14 +1,14 @@
 /** Администрирование: #/admin/commands и #/admin/users (только роль admin — проверяет гард роутера и сервер). */
-import { $, h, esc, formatDate, roleLabel, setTitle } from "../ui/dom.js?v=202611160100";
-import { icon } from "../ui/icons.js?v=202611160100";
-import { openModal, modalHead, confirmDialog } from "../ui/modal.js?v=202611160100";
-import { toast } from "../ui/toast.js?v=202611160100";
-import { field, selectField, setFieldError, clearErrors, formAlert, showApiError, values, busy } from "../ui/forms.js?v=202611160100";
-import { adminApi, datasetApi } from "../api/index.js?v=202611160100";
-import { session } from "../session.js?v=202611160100";
-import { showOverlay, overlayFrame, setActiveNav } from "./shell.js?v=202611160100";
-import { ensureChatBehind } from "./chat.js?v=202611160100";
-import { getCategories, invalidateCategories } from "./categories.js?v=202611160100";
+import { $, h, esc, formatDate, roleLabel, setTitle } from "../ui/dom.js?v=202611160130";
+import { icon } from "../ui/icons.js?v=202611160130";
+import { openModal, modalHead, confirmDialog } from "../ui/modal.js?v=202611160130";
+import { toast } from "../ui/toast.js?v=202611160130";
+import { field, selectField, setFieldError, clearErrors, formAlert, showApiError, values, busy } from "../ui/forms.js?v=202611160130";
+import { adminApi, datasetApi } from "../api/index.js?v=202611160130";
+import { session } from "../session.js?v=202611160130";
+import { showOverlay, overlayFrame, setActiveNav } from "./shell.js?v=202611160130";
+import { ensureChatBehind } from "./chat.js?v=202611160130";
+import { getCategories, invalidateCategories } from "./categories.js?v=202611160130";
 
 const PLATFORMS = ["linux", "mac", "windows", "unix", "cross"];
 const ROLE_OPTIONS = [["user", "Пользователь"], ["admin", "Администратор"]];

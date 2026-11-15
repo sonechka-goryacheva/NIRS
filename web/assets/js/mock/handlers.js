@@ -2,9 +2,9 @@
  * Обработчики мок-сервера. Повторяют контракт spec/tech/api.md:
  * те же пути, статусы, тексты ошибок и проверки прав, что должен делать бэкенд.
  */
-import { route, HttpError } from "./router.js?v=202611160100";
-import { db, save, nextId, setSession, currentUser } from "./db.js?v=202611160100";
-import { answer } from "./search.js?v=202611160100";
+import { route, HttpError } from "./router.js?v=202611160130";
+import { db, save, nextId, setSession, currentUser } from "./db.js?v=202611160130";
+import { answer } from "./search.js?v=202611160130";
 
 const now = () => new Date().toISOString();
 const ROLES = ["user", "admin"];

@@ -2,12 +2,20 @@
 app/llm.py
 
 Вызов LLM для формирования ответа на запрос пользователя.
-Если API-ключа нет — работает заглушка (USE_STUB = True).
+По умолчанию работает заглушка (USE_STUB=true в .env или переменная не задана).
 """
 
 import os
 
-USE_STUB = True
+try:  # настройки из .env (OPENAI_API_KEY, USE_STUB), если установлен python-dotenv
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except ImportError:
+    pass
+
+# Заглушка без обращения к API — по умолчанию. Настоящая LLM: USE_STUB=false и OPENAI_API_KEY в .env
+USE_STUB = os.getenv("USE_STUB", "true").strip().lower() not in ("false", "0", "no")
 
 PROMPT = """Ты — справочник IT-команд.
 Пользователь спрашивает: {query}
@@ -24,10 +32,14 @@ PROMPT = """Ты — справочник IT-команд.
    - <example2>
    - <example3>
 
+Используй только команды из контекста, не придумывай свои.
 Если точного совпадения нет — верни сообщение
 «Подходящая команда не найдена. Возможно, подойдут указанные ниже варианты?»
-и 3 ближайших команды.
+и команды из контекста.
 """
+
+# Ответ, когда поиск ничего не нашёл (spec/product/answer_format.md): LLM не вызывается — ей не на что опереться
+NOTHING_FOUND = "Подходящая команда не найдена. Попробуйте описать задачу другими словами."
 
 
 def build_context(docs: list[dict]) -> str:
@@ -51,11 +63,7 @@ def build_context(docs: list[dict]) -> str:
 
 def _stub_answer(query: str, docs: list[dict]) -> str:
     if not docs:
-        return (
-            "Подходящая команда не найдена. "
-            "Возможно, подойдут указанные ниже варианты?\n\n"
-            "(заглушка: список вариантов пуст)"
-        )
+        return NOTHING_FOUND
 
     parts = []
     for d in docs:
@@ -93,6 +101,8 @@ def _real_answer(query: str, docs: list[dict]) -> str:
 
 
 def ask_llm(query: str, docs: list[dict]) -> str:
+    if not docs:  # защита от выдумок: без найденных команд нейросеть не спрашиваем
+        return NOTHING_FOUND
     if USE_STUB:
         return _stub_answer(query, docs)
 

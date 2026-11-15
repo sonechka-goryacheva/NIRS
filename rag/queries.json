@@ -1,0 +1,68 @@
+{
+  "about": "Тестовый набор для оценки поиска (методичка, раздел 2). Запросы сформулированы как задачи пользователя своими словами, без копирования текста корпуса. relevant — все команды корпуса, которые решают задачу (не меньше 3). negative — запросы не по теме: поиск должен вернуть пустой ответ (тип nothing).",
+  "queries": [
+    {"id": "q01", "topic": "Файлы", "query": "посмотреть, что лежит в каталоге", "relevant": ["linux-0", "powershell-4", "mac-0"]},
+    {"id": "q02", "topic": "Файлы", "query": "прочитать текстовый файл прямо в терминале", "relevant": ["linux-8", "linux-9", "linux-10", "powershell-8"]},
+    {"id": "q03", "topic": "Файлы", "query": "найти файл или строчку текста внутри файлов", "relevant": ["linux-11", "linux-12", "mac-6", "powershell-10"]},
+    {"id": "q04", "topic": "Файлы", "query": "скопировать или перенести файлы в другое место", "relevant": ["linux-3", "linux-4", "powershell-7", "linux-28", "linux-29"]},
+    {"id": "q05", "topic": "Файлы", "query": "создать или удалить файлы и каталоги", "relevant": ["linux-5", "linux-6", "linux-7", "powershell-5", "powershell-6"]},
+    {"id": "q06", "topic": "Файлы", "query": "запаковать каталог для резервной копии", "relevant": ["linux-17", "linux-18", "linux-29", "linux-3"]},
+    {"id": "q07", "topic": "Файлы", "query": "дописать или перезаписать текст в файле в Windows", "relevant": ["powershell-9", "powershell-5", "powershell-8"]},
+
+    {"id": "q08", "topic": "Права и диски", "query": "скрипт не запускается — не хватает прав", "relevant": ["linux-13", "linux-14", "powershell-17"]},
+    {"id": "q09", "topic": "Права и диски", "query": "сколько места занято и сколько осталось на диске", "relevant": ["linux-15", "linux-16", "mac-3", "docker-12"]},
+
+    {"id": "q10", "topic": "Процессы и службы", "query": "какие программы сейчас работают на компьютере", "relevant": ["linux-22", "linux-23", "powershell-0"]},
+    {"id": "q11", "topic": "Процессы и службы", "query": "завершить зависшую программу", "relevant": ["linux-24", "powershell-1", "linux-23"]},
+    {"id": "q12", "topic": "Процессы и службы", "query": "перезапустить системный сервис", "relevant": ["linux-25", "powershell-3", "mac-10", "powershell-2"]},
+    {"id": "q13", "topic": "Процессы и службы", "query": "где смотреть журнал ошибок системы", "relevant": ["linux-26", "powershell-12", "docker-5"]},
+    {"id": "q14", "topic": "Процессы и службы", "query": "запустить программу или скрипт из консоли", "relevant": ["powershell-20", "powershell-17", "mac-0", "docker-0"]},
+
+    {"id": "q15", "topic": "Навигация и система", "query": "в какой я сейчас директории и как перейти в другую", "relevant": ["linux-1", "linux-2", "powershell-18"]},
+    {"id": "q16", "topic": "Навигация и система", "query": "узнать версию ОС и характеристики компьютера", "relevant": ["mac-13", "mac-14", "powershell-13"]},
+    {"id": "q17", "topic": "Навигация и система", "query": "вспомнить ранее введённые команды и почитать справку", "relevant": ["linux-19", "powershell-19", "linux-20", "powershell-11"]},
+    {"id": "q18", "topic": "Навигация и система", "query": "поставить программу или обновить систему на маке", "relevant": ["mac-4", "mac-12", "mac-11"]},
+    {"id": "q19", "topic": "Навигация и система", "query": "поменять системные параметры макбука из терминала", "relevant": ["mac-5", "mac-9", "mac-3", "mac-8"]},
+
+    {"id": "q20", "topic": "Сеть", "query": "подключиться к удалённой машине и передать на неё файлы", "relevant": ["linux-27", "linux-28", "linux-29"]},
+    {"id": "q21", "topic": "Сеть", "query": "проверить, отвечает ли сервер", "relevant": ["network-0", "network-14", "powershell-15", "network-1"]},
+    {"id": "q22", "topic": "Сеть", "query": "через какие узлы идут пакеты до сайта", "relevant": ["network-1", "network-14", "network-12"]},
+    {"id": "q23", "topic": "Сеть", "query": "узнать свой IP адрес", "relevant": ["network-11", "powershell-14", "mac-9"]},
+    {"id": "q24", "topic": "Сеть", "query": "кто занял порт и какие соединения открыты", "relevant": ["network-8", "network-6", "network-7", "network-10"]},
+    {"id": "q25", "topic": "Сеть", "query": "определить по доменному имени адрес и владельца", "relevant": ["network-2", "network-3", "network-15"]},
+    {"id": "q26", "topic": "Сеть", "query": "скачать файл по ссылке или отправить HTTP запрос к API", "relevant": ["network-4", "network-5", "powershell-16"]},
+
+    {"id": "q27", "topic": "Git", "query": "зафиксировать свои правки и отправить их в репозиторий", "relevant": ["git-1", "git-2", "git-16"]},
+    {"id": "q28", "topic": "Git", "query": "откатить неудачный коммит", "relevant": ["git-11", "git-12", "git-20"]},
+    {"id": "q29", "topic": "Git", "query": "создать ветку, переключиться и объединить ветки", "relevant": ["git-5", "git-6", "git-7", "git-8"]},
+    {"id": "q30", "topic": "Git", "query": "забрать свежие изменения коллег с сервера", "relevant": ["git-14", "git-15", "git-13"]},
+    {"id": "q31", "topic": "Git", "query": "кто и когда поменял код, посмотреть историю правок", "relevant": ["git-3", "git-18", "git-4", "git-20"]},
+    {"id": "q32", "topic": "Git", "query": "найти коммит, после которого появился баг", "relevant": ["git-19", "git-3", "git-18"]},
+    {"id": "q33", "topic": "Git", "query": "отложить незаконченную работу и посмотреть, что изменилось", "relevant": ["git-10", "git-0", "git-4"]},
+
+    {"id": "q34", "topic": "Docker", "query": "запустить приложение в контейнере", "relevant": ["docker-0", "docker-8", "docker-4"]},
+    {"id": "q35", "topic": "Docker", "query": "что сейчас происходит с контейнерами: список, логи, подробности", "relevant": ["docker-1", "docker-5", "docker-13"]},
+    {"id": "q36", "topic": "Docker", "query": "освободить место от старых контейнеров и образов", "relevant": ["docker-12", "docker-7", "docker-9"]},
+    {"id": "q37", "topic": "Docker", "query": "собрать образ и выложить его в реестр", "relevant": ["docker-3", "docker-14", "docker-2"]},
+    {"id": "q38", "topic": "Docker", "query": "остановить все сервисы", "relevant": ["docker-6", "docker-9", "powershell-3", "linux-25"]},
+
+    {"id": "q39", "topic": "SQL", "query": "вытащить из таблицы строки по условию", "relevant": ["sql-0", "sql-3", "sql-2", "sql-1"]},
+    {"id": "q40", "topic": "SQL", "query": "отсортировать и сгруппировать результат запроса", "relevant": ["sql-4", "sql-5", "sql-15"]},
+    {"id": "q41", "topic": "SQL", "query": "добавить, поправить или стереть записи в таблице", "relevant": ["sql-7", "sql-8", "sql-9", "sql-16"]},
+    {"id": "q42", "topic": "SQL", "query": "создать таблицу или поменять её структуру", "relevant": ["sql-10", "sql-11", "sql-12"]},
+    {"id": "q43", "topic": "SQL", "query": "объединить данные нескольких таблиц и посчитать итоги", "relevant": ["sql-6", "sql-5", "sql-14", "sql-15"]},
+
+    {"id": "q44", "topic": "Python", "query": "подготовить окружение и поставить зависимости проекта", "relevant": ["python-0", "python-1", "python-2", "python-10"]},
+    {"id": "q45", "topic": "Python", "query": "проверить код на ошибки и стиль перед коммитом", "relevant": ["python-4", "python-6", "python-7", "python-8", "python-11"]},
+    {"id": "q46", "topic": "Python", "query": "какие пакеты установлены", "relevant": ["python-3", "python-2", "mac-4"]}
+  ],
+  "negative": [
+    "рецепт борща со сметаной",
+    "кракозябра",
+    "погода в Москве на выходные",
+    "asdfgh qwerty",
+    "лучший фильм года",
+    "как приготовить кофе для гостей",
+    "что посмотреть в театре на выходных"
+  ]
+}

@@ -1,7 +1,7 @@
 /** Кэш категорий (нужны в датасете, админке и подписях карточек). */
-import { datasetApi } from "../api/index.js?v=202611160100";
-import { setCategoryLabels } from "../ui/command-card.js?v=202611160100";
-import { session } from "../session.js?v=202611160100";
+import { datasetApi } from "../api/index.js?v=202611160130";
+import { setCategoryLabels } from "../ui/command-card.js?v=202611160130";
+import { session } from "../session.js?v=202611160130";
 
 let cache = null;
 // Набор категорий зависит от пользователя («Мои команды» есть только у зарегистрированных)

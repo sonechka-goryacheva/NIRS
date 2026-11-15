@@ -1,7 +1,7 @@
 /** Карточка команды — одна разметка для ответа в чате и датасета. */
-import { esc } from "./dom.js?v=202611160100";
-import { icon } from "./icons.js?v=202611160100";
-import { toast } from "./toast.js?v=202611160100";
+import { esc } from "./dom.js?v=202611160130";
+import { icon } from "./icons.js?v=202611160130";
+import { toast } from "./toast.js?v=202611160130";
 
 let labels = {};
 export function setCategoryLabels(map) { labels = map; }

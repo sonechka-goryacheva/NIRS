@@ -1,5 +1,5 @@
 /** HTTP-клиент: единственное место, где вызывается fetch. */
-import { CONFIG } from "../config.js?v=202611160100";
+import { CONFIG } from "../config.js?v=202611160130";
 
 export class ApiError extends Error {
   /** @param {number} status  @param {string} message  @param {string|null} field */

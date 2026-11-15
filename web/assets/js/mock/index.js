@@ -5,10 +5,10 @@
  * Удаляется целиком вместе с папкой mock/ — фронтенд о нём не знает.
  * В консоли: mockServer.reset() — сбросить данные, mockServer.db — посмотреть состояние.
  */
-import { CONFIG } from "../config.js?v=202611160100";
-import { dispatch } from "./router.js?v=202611160100";
-import { db, resetDb } from "./db.js?v=202611160100";
-import "./handlers.js?v=202611160100"; // регистрирует маршруты
+import { CONFIG } from "../config.js?v=202611160130";
+import { dispatch } from "./router.js?v=202611160130";
+import { db, resetDb } from "./db.js?v=202611160130";
+import "./handlers.js?v=202611160130"; // регистрирует маршруты
 
 const realFetch = window.fetch.bind(window);
 const LATENCY = [200, 600];

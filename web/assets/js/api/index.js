@@ -18,7 +18,7 @@
  *   match — только при поиске (?q=): фрагмент сообщения с совпадением; null — совпало название
  * @typedef {ChatSummary & {messages: Message[]}} Chat
  */
-import { request } from "./http.js?v=202611160100";
+import { request } from "./http.js?v=202611160130";
 
 const enc = encodeURIComponent;
 

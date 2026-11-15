@@ -1,16 +1,16 @@
 /** Датасет: #/dataset → #/dataset/:category → #/dataset/:category/:id (модальный маршрут поверх чата) */
-import { $, esc, plural, setTitle } from "../ui/dom.js?v=202611160100";
-import { icon } from "../ui/icons.js?v=202611160100";
-import { confirmDialog } from "../ui/modal.js?v=202611160100";
-import { toast } from "../ui/toast.js?v=202611160100";
-import { commandCard } from "../ui/command-card.js?v=202611160100";
-import { datasetApi, myCommandsApi } from "../api/index.js?v=202611160100";
-import { session } from "../session.js?v=202611160100";
-import * as router from "../router.js?v=202611160100";
-import { showOverlay, overlayFrame, setActiveNav } from "./shell.js?v=202611160100";
-import { ensureChatBehind } from "./chat.js?v=202611160100";
-import { getCategories, invalidateCategories } from "./categories.js?v=202611160100";
-import { MY, openImportDialog, openMyCommandDialog, downloadTemplate } from "./my-dataset.js?v=202611160100";
+import { $, esc, plural, setTitle } from "../ui/dom.js?v=202611160130";
+import { icon } from "../ui/icons.js?v=202611160130";
+import { confirmDialog } from "../ui/modal.js?v=202611160130";
+import { toast } from "../ui/toast.js?v=202611160130";
+import { commandCard } from "../ui/command-card.js?v=202611160130";
+import { datasetApi, myCommandsApi } from "../api/index.js?v=202611160130";
+import { session } from "../session.js?v=202611160130";
+import * as router from "../router.js?v=202611160130";
+import { showOverlay, overlayFrame, setActiveNav } from "./shell.js?v=202611160130";
+import { ensureChatBehind } from "./chat.js?v=202611160130";
+import { getCategories, invalidateCategories } from "./categories.js?v=202611160130";
+import { MY, openImportDialog, openMyCommandDialog, downloadTemplate } from "./my-dataset.js?v=202611160130";
 
 export const CAT_ICON = { linux: "sh", mac: "⌘", git: "git", docker: "dkr", sql: "SQL", python: "py", network: "net", powershell: "PS", my: "★" };
 

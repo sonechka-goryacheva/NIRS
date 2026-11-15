@@ -3,17 +3,17 @@
  * Вопросы и проверку ответов делает сервер (POST /learn/quizzes…): правильный ответ клиент узнаёт только после выбора.
  * Закрепление: после каждого ответа — карточка команды; ошибки копятся и повторяются отдельным тестом, пока не будут отвечены верно.
  */
-import { $, h, esc, plural, setTitle } from "../ui/dom.js?v=202611160100";
-import { icon } from "../ui/icons.js?v=202611160100";
-import { confirmDialog, openModal, modalHead } from "../ui/modal.js?v=202611160100";
-import { toast } from "../ui/toast.js?v=202611160100";
-import { commandCard } from "../ui/command-card.js?v=202611160100";
-import { learnApi } from "../api/index.js?v=202611160100";
-import * as router from "../router.js?v=202611160100";
-import { showOverlay, overlayFrame, setActiveNav } from "./shell.js?v=202611160100";
-import { ensureChatBehind } from "./chat.js?v=202611160100";
-import { getCategories } from "./categories.js?v=202611160100";
-import { CAT_ICON } from "./dataset.js?v=202611160100";
+import { $, h, esc, plural, setTitle } from "../ui/dom.js?v=202611160130";
+import { icon } from "../ui/icons.js?v=202611160130";
+import { confirmDialog, openModal, modalHead } from "../ui/modal.js?v=202611160130";
+import { toast } from "../ui/toast.js?v=202611160130";
+import { commandCard } from "../ui/command-card.js?v=202611160130";
+import { learnApi } from "../api/index.js?v=202611160130";
+import * as router from "../router.js?v=202611160130";
+import { showOverlay, overlayFrame, setActiveNav } from "./shell.js?v=202611160130";
+import { ensureChatBehind } from "./chat.js?v=202611160130";
+import { getCategories } from "./categories.js?v=202611160130";
+import { CAT_ICON } from "./dataset.js?v=202611160130";
 
 const LETTERS = ["A", "B", "C", "D"];
 /** Варианты длины теста: «10 вопросов» (если в теме больше 10 команд) и «Вся тема». */

@@ -2,14 +2,14 @@
  * Каркас приложения после входа: боковая панель + область чата + слой для модальных маршрутов
  * (#/dataset, #/profile, #/admin/...). Каркас создаётся один раз и переживает смену маршрутов.
  */
-import { $, $$, h, esc, roleLabel } from "../ui/dom.js?v=202611160100";
-import { icon } from "../ui/icons.js?v=202611160100";
-import { openModal, confirmDialog } from "../ui/modal.js?v=202611160100";
-import { toast } from "../ui/toast.js?v=202611160100";
-import { chatsApi } from "../api/index.js?v=202611160100";
-import { themeButtonHtml } from "../ui/theme-toggle.js?v=202611160100";
-import { session } from "../session.js?v=202611160100";
-import * as router from "../router.js?v=202611160100";
+import { $, $$, h, esc, roleLabel } from "../ui/dom.js?v=202611160130";
+import { icon } from "../ui/icons.js?v=202611160130";
+import { openModal, confirmDialog } from "../ui/modal.js?v=202611160130";
+import { toast } from "../ui/toast.js?v=202611160130";
+import { chatsApi } from "../api/index.js?v=202611160130";
+import { themeButtonHtml } from "../ui/theme-toggle.js?v=202611160130";
+import { session } from "../session.js?v=202611160130";
+import * as router from "../router.js?v=202611160130";
 
 let mounted = false;
 let overlayClose = null;
@@ -37,7 +37,7 @@ export function mountShell() {
     <aside class="sidebar" aria-label="Боковая панель">
       <div class="sidebar-inner">
         <div class="side-head">
-          <a class="brand" href="#/chat"><img src="assets/img/logo.svg?v=202611160100" alt="" /><span>Справочник<small>IT-команд</small></span></a>
+          <a class="brand" href="#/chat"><img src="assets/img/logo.svg?v=202611160130" alt="" /><span>Справочник<small>IT-команд</small></span></a>
           <div class="side-head-tools">
             ${themeButtonHtml()}
             <button class="icon-btn" id="closeSidebar" aria-label="Скрыть панель">${icon("panel")}</button>
@@ -47,7 +47,7 @@ export function mountShell() {
         <div class="search-wrap side-search">${icon("search")}<input class="input" id="chatSearch" type="search" placeholder="Поиск по истории" aria-label="Поиск по истории" maxlength="100" autocomplete="off" /></div>
         <div class="side-label" id="historyLabel">История</div>
         <nav class="chat-list" id="chatList" aria-label="История чатов"></nav>
-        ${guest ? `<div class="guest-note">${icon("alert")}<div><b>Гостевой режим</b><span>История удалится после выхода.</span><a href="#/register">Зарегистрироваться</a></div></div>` : ""}
+        ${guest ? `<div class="guest-note">${icon("alert")}<div><b>Гостевой режим</b><span>История удалится после выхода или закрытия вкладки.</span><a href="#/register">Зарегистрируйтесь, чтобы сохранить</a></div></div>` : ""}
         <nav class="side-nav" aria-label="Разделы">
           <a class="nav-btn" href="#/dataset" data-nav="/dataset">${icon("book")}Справочник команд</a>
           ${guest ? "" : `<a class="nav-btn" href="#/dataset/my" data-nav="/dataset/my">${icon("star")}Мои команды</a>`}

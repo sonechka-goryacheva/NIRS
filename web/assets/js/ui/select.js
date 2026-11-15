@@ -4,8 +4,8 @@
  * (скрыт) — значение, FormData, событие change и disabled работают как прежде.
  * Клавиатура: ↑/↓, Home/End, Enter/Пробел — выбрать, Esc — закрыть, буква — переход по первой букве.
  */
-import { esc } from "./dom.js?v=202611160100";
-import { icon } from "./icons.js?v=202611160100";
+import { esc } from "./dom.js?v=202611160130";
+import { icon } from "./icons.js?v=202611160130";
 
 let openState = null; // { sel, btn, pop, active }
 

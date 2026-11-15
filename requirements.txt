@@ -1,6 +1,5 @@
-rank-bm25
+pymorphy3
 openai
 python-dotenv
-pymorphy3
 pytest
 pyinstaller

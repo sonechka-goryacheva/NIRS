@@ -1,6 +1,6 @@
 /** Кнопка «солнце/луна»: быстро переключает светлую и тёмную тему (на входе и в боковой панели). */
-import { icon } from "./icons.js?v=202611160100";
-import { currentTheme, toggleTheme, onThemeChange } from "../theme.js?v=202611160100";
+import { icon } from "./icons.js?v=202611160130";
+import { currentTheme, toggleTheme, onThemeChange } from "../theme.js?v=202611160130";
 
 export function themeButtonHtml(cls = "icon-btn") {
   const dark = currentTheme() === "dark";
