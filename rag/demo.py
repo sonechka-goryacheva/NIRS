@@ -78,7 +78,7 @@ def run(engine: SearchEngine, question: str, k: int = 3, full_prompt: bool = Fal
     # 3. Generation
     mode = "заглушка (USE_STUB=true): ответ собран из найденных команд" if llm.USE_STUB else "OpenAI (USE_STUB=false)"
     print(f"\n3) Generation — {mode}")
-    answer = llm.ask_llm(question, docs)
+    answer = llm.ask_llm(question, docs, kind=kind)
     print("\nОтвет:")
     for ln in answer.splitlines():
         print(f"   {ln}")

@@ -67,3 +67,26 @@ def test_index_rebuilds_when_corpus_changes(tmp_path):
     f.write_text(json.dumps([{"name": "Свободное место", "command": "df -h", "description": "", "tags": ["место"]}]), encoding="utf-8")
     os.utime(f, None)
     assert e.is_stale()
+
+
+def test_answer_type_thresholds_come_from_config():
+    from dataclasses import replace
+
+    from rag.engine import Config, answer_type
+
+    cfg = Config()
+    assert (cfg.k1, cfg.b, cfg.found_min_score) == (0.5, 0.75, 5.0)
+    assert answer_type(5.0, 0.0, cfg) == "found" and answer_type(4.99, 1.0, cfg) == "similar"
+    assert answer_type(9.0, 0.2, replace(cfg, found_min_coverage=0.5)) == "similar"
+
+
+def test_topical_traps_are_not_confident_answers(engine):
+    """Ловушки по теме (рабочий набор): на подавляющее большинство не должен отвечать тип found."""
+    import json
+
+    from rag.evaluate import QUERIES_FILE
+
+    traps = json.loads(QUERIES_FILE.read_text(encoding="utf-8"))["traps"]
+    assert len(traps) >= 5
+    not_found = sum(engine.answer(q)["type"] != "found" for q in traps)
+    assert not_found / len(traps) >= 0.75

@@ -8,12 +8,16 @@
     python -m rag eval --compare            + сравнение вариантов предобработки и сетка k1 × b
     python -m rag shell                     интерактивный поиск
     python -m rag demo ["вопрос"]           RAG по шагам: поиск → промпт → ответ LLM со ссылками (= python rag/demo.py)
+    python -m rag tune                      перебор параметров: k1 × b, глубина k, пороги типа ответа (на рабочем и контрольном наборах)
+    python -m rag benchmark                 контрольный бенчмарк КТ: 30 документов, 10 вопросов + 5 ловушек, 4 метрики
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import sys
+from pathlib import Path
 
 from .engine import SearchEngine
 from .evaluate import KS, coverage, evaluate, grid, load_queries, negatives, variants
@@ -109,6 +113,8 @@ def cmd_eval(engine: SearchEngine, args) -> None:
     neg = negatives(engine, data)
     print("\nТипы ответа: по теме — " + ", ".join(f"{t} {n}" for t, n in neg["positive_types"].items())
           + "; не по теме — " + ", ".join(f"«{q}» → {t}" for q, t in neg["negative"].items()))
+    if neg["traps"]:
+        print("Ловушки по теме (ответа в корпусе нет): " + ", ".join(f"«{q}» → {t}" for q, t in neg["traps"].items()))
 
     if args.compare:
         print("\nСравнение вариантов (меняется один фактор):")
@@ -125,6 +131,21 @@ def cmd_eval(engine: SearchEngine, args) -> None:
         print("  k1\\b " + "".join(f"{b:>7}" for b in bs))
         for k1 in sorted({k for k, _ in g}):
             print(f"  {k1:<5}" + "".join(f"{g[(k1, b)][2]:>7.3f}" for b in bs))
+
+
+def cmd_benchmark(args) -> None:
+    from .benchmark import format_report, run_benchmark  # noqa: PLC0415
+
+    try:
+        result = run_benchmark(k=args.k, stub={"auto": None, "stub": True, "openai": False}[args.llm])
+    except RuntimeError as e:
+        sys.exit(f"Ошибка: {e}")
+    report = format_report(result, details=not args.brief)
+    print(report)
+    if args.md:
+        Path(args.md).write_text(format_report(result), encoding="utf-8")
+    if args.json:
+        Path(args.json).write_text(json.dumps(result, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 def cmd_shell(engine: SearchEngine, args) -> None:
@@ -158,9 +179,25 @@ def main(argv=None) -> int:
 
         return demo_main(sys.argv[2:])
     s = sub.add_parser("demo", help="RAG по шагам (python rag/demo.py)")
+    s = sub.add_parser("benchmark", help="контрольный бенчмарк КТ: Recall@k, MRR, Accuracy, Correct Rejection Rate")
+    s.add_argument("-k", type=int, default=3, help="глубина выдачи (по умолчанию 3)")
+    s.add_argument("--llm", choices=["auto", "stub", "openai"], default="auto",
+                   help="auto — как в .env (USE_STUB), stub — заглушка, openai — настоящая LLM (нужен OPENAI_API_KEY)")
+    s.add_argument("--md", help="сохранить отчёт в Markdown")
+    s.add_argument("--json", help="сохранить полный результат (ответы, выдача по каждому вопросу) в JSON")
+    s.add_argument("--brief", action="store_true", help="только метрики, без таблицы и разбора")
+    sub.add_parser("tune", help="перебор параметров: k1 × b, глубина k, пороги типа ответа")
     s = sub.add_parser("shell", help="интерактивный поиск")
     s.add_argument("-k", type=int, default=5)
     args = p.parse_args(argv)
+    if args.cmd == "benchmark":
+        cmd_benchmark(args)
+        return 0
+    if args.cmd == "tune":
+        from .tune import main as tune_main  # noqa: PLC0415
+
+        tune_main()
+        return 0
     corpus_dir = getattr(args, "corpus", None)
     if corpus_dir:
         from .corpus import load_corpus  # noqa: PLC0415

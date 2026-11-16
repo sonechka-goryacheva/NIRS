@@ -14,6 +14,10 @@
     python rag/demo.py "откатить коммит"    # то же для своего вопроса
     python rag/evaluate.py                  # бенчмарк: Recall@3, MRR и разбор по каждому вопросу
 
+    python -m rag tune                      # перебор параметров: k1 × b, глубина k, пороги типа ответа
+    python -m rag benchmark                 # контрольный бенчмарк КТ: Recall@3, MRR, Accuracy, Correct Rejection Rate
+    python -m rag benchmark --llm openai --md report.md --json report.json   # с настоящей LLM и сохранением результата
+
     python -m rag stats                     # корпус, словарь, фрагмент обратного индекса
     python -m rag search "не хватает прав при запуске скрипта"
     python -m rag search "посмотреть запущенные контейнеры" --explain -k 5
@@ -22,7 +26,31 @@
     python -m rag eval --details            # + результат по каждому запросу (✓ — релевантный документ)
     python -m rag eval --compare            # + сравнение вариантов предобработки и сетка k1 × b
     python -m rag shell                     # интерактивный поиск
-    python -m pytest rag                    # тесты индекса, формул, метрик и набора запросов
+    python -m pytest                        # тесты индекса, формул, метрик, наборов запросов и бенчмарка
+
+## Контрольный бенчмарк КТ и запуск в рантайме
+
+Набор из слайдов КТ — `rag/control/`: 30 документов D01–D30 (`docs.json`), 10 обычных вопросов с эталонами и 5 ловушек
+(`questions.json`). Прогон делает то же, что приложение: поиск → ответ (`rag/pipeline.py` → `app/llm.py`) → четыре метрики,
+по каждому вопросу сохраняются выдача и ответ. Заглушка — доли секунды, OpenAI — до ~30 с. Результаты и разбор ошибок —
+`REPORT.md`, раздел 8; сохранённый прогон — `results/control_stub.md` и `.json`.
+
+Из кода (так бенчмарк запускает работающее приложение):
+
+    from rag import run_benchmark
+    result = run_benchmark()                 # k=3, LLM по .env; run_benchmark(stub=False) — настоящая LLM
+    result["metrics"]                        # {"recall@3", "mrr", "mrr@3", "accuracy", "correct_rejection_rate"}
+    result["questions"]                      # по каждому вопросу: top-k, ответ, вердикт, где потеряна информация
+
+Подключение к серверу (`app/api.py`, часть интеграции; пример, ещё не реализован) — обычный обработчик для admin,
+FastAPI выполняет обычную `def` в пуле потоков:
+
+    @router.post("/admin/benchmark")
+    def run_control_benchmark():
+        return run_benchmark()
+
+`python -m rag benchmark` без ключа и `.env` работает на заглушке; с `--llm openai` и без `OPENAI_API_KEY` останавливается
+с понятной ошибкой, а если LLM не ответила на часть вопросов — в отчёте появляется предупреждение.
 
 ## Как демонстрировать (5–7 минут)
 
@@ -43,7 +71,7 @@
 4. **Качество** — `python -m rag eval`: 46 запросов, у каждого ≥ 3 релевантных, покрытие 134 из 149 команд;
    Recall@k и MRR с «максимумом возможного», разбивка по темам.
 5. **Обоснование выбора** — `python -m rag eval --compare`: без лемматизации хуже, без стоп-слов поиск отвечает
-   на посторонние запросы, параметры k1 и b почти не влияют. Выводы — REPORT.md, раздел 7.
+   на посторонние запросы, параметры BM25 влияют слабо (подобраны: k1 = 0,5, раздел 3 отчёта). Выводы — REPORT.md, раздел 7.
 
 Самопроверка формул — `python -m pytest rag -v`: индекс на примере из методички (граф → d1, d2; матрица → d2, d3)
 и BM25 против ручного расчёта.
@@ -56,9 +84,13 @@
       corpus.py      загрузка data/corpus/*.json, id = <категория>-<индекс>
       engine.py      SearchEngine: поиск top-k, тип ответа для чата (found / similar / nothing), настройки Config
       metrics.py     Recall@k, MRR
+      tune.py        перебор параметров: k1 × b, глубина k, пороги типа ответа (`python -m rag tune`)
       evaluate.py    оценка на тестовом наборе, покрытие корпуса, сравнение вариантов
       queries.json   тестовый набор: 46 запросов (≥ 3 релевантных) + 7 запросов не по теме
       results/       зафиксированные прогоны «до» и «после» дополнения тегов + корпус «до»
+      pipeline.py    ask(): вопрос → поиск → LLM → {answer, sources, type} — путь одного запроса
+      benchmark.py   run_benchmark(): контрольный бенчмарк КТ в рантайме, 4 метрики, отчёт
+      control/       контрольный набор КТ: docs.json (D01–D30), questions.json (10 + 5)
       demo.py        демонстрация RAG: Retrieval → Augmented (промпт) → Generation (app/llm.py) + источники
       __main__.py    командная строка
       tests/         pytest

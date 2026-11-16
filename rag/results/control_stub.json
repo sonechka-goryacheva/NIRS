@@ -1,0 +1,586 @@
+{
+ "started_at": "2026-11-16T23:21:25+03:00",
+ "duration_s": 0.06,
+ "mode": "stub",
+ "k": 3,
+ "config": "k1=0.5, b=0.75, лемматизация=да, стоп-слова=да, поля: name×1, command×1, description×1, tags×1",
+ "llm_errors": 0,
+ "corpus": {
+  "documents": 30,
+  "regular": 10,
+  "traps": 5
+ },
+ "metrics": {
+  "recall@3": 0.8,
+  "mrr": 0.95,
+  "mrr@3": 0.95,
+  "accuracy": 0.6,
+  "correct_rejection_rate": 1.0
+ },
+ "questions": [
+  {
+   "id": "Q01",
+   "type": "regular",
+   "question": "Как откатить неудачный коммит?",
+   "retrieved": [
+    {
+     "id": "D02",
+     "name": "Откат коммита",
+     "command": "git revert <commit>",
+     "score": 5.274
+    },
+    {
+     "id": "D01",
+     "name": "Сброс изменений",
+     "command": "git reset <mode> <commit>",
+     "score": 4.638
+    },
+    {
+     "id": "D03",
+     "name": "Reflog",
+     "command": "git reflog",
+     "score": 2.25
+    }
+   ],
+   "answer_type": "found",
+   "answer": "1. Откат коммита\n2. Команда: git revert <commit>\n3. Описание: Создаёт новый коммит, отменяющий указанный.\n4. Примеры применения:\n   - git revert abc123\n   - git revert HEAD\n   - git revert -n abc123\n\n---\n\n1. Сброс изменений\n2. Команда: git reset <mode> <commit>\n3. Описание: Сбрасывает состояние репозитория.\n4. Примеры применения:\n   - git reset --soft HEAD~1\n   - git reset --hard HEAD\n   - git reset file.txt\n\n---\n\n1. Reflog\n2. Команда: git reflog\n3. Описание: Показывает историю перемещений HEAD.\n4. Примеры применения:\n   - git reflog\n   - git reflog show main\n   - git reset --hard HEAD@{2}\n\nИсточники: [D02], [D01], [D03]",
+   "refusal": false,
+   "llm_error": false,
+   "relevant": [
+    "D01",
+    "D02",
+    "D03"
+   ],
+   "reference": "Откатить коммит можно двумя способами: git revert создаёт новый коммит, отменяющий изменения, а git reset сдвигает ветку назад. Потерянный коммит помогает найти git reflog.",
+   "must_include": [
+    "git revert",
+    "git reset"
+   ],
+   "recall": 1.0,
+   "rr": 1.0,
+   "rr_at_k": 1.0,
+   "correct": true,
+   "lost_at": null
+  },
+  {
+   "id": "Q02",
+   "type": "regular",
+   "question": "Скрипт не запускается — не хватает прав. Что делать?",
+   "retrieved": [
+    {
+     "id": "D06",
+     "name": "Политика выполнения",
+     "command": "Set-ExecutionPolicy / Get-ExecutionPolicy",
+     "score": 5.542
+    },
+    {
+     "id": "D04",
+     "name": "Права доступа",
+     "command": "chmod <mode> <file>",
+     "score": 5.439
+    }
+   ],
+   "answer_type": "found",
+   "answer": "1. Политика выполнения\n2. Команда: Set-ExecutionPolicy / Get-ExecutionPolicy\n3. Описание: Управляет политикой выполнения скриптов.\n4. Примеры применения:\n   - Get-ExecutionPolicy\n   - Set-ExecutionPolicy RemoteSigned\n   - Set-ExecutionPolicy Bypass -Scope Process\n\n---\n\n1. Права доступа\n2. Команда: chmod <mode> <file>\n3. Описание: Меняет права доступа.\n4. Примеры применения:\n   - chmod +x script.sh\n   - chmod 644 file.txt\n   - chmod -R 755 scripts/\n\nИсточники: [D06], [D04]",
+   "refusal": false,
+   "llm_error": false,
+   "relevant": [
+    "D04",
+    "D05",
+    "D06"
+   ],
+   "reference": "В Linux и macOS выдать право на запуск командой chmod +x, при чужом владельце файла — сменить его через chown. В Windows разрешить скрипты через Set-ExecutionPolicy.",
+   "must_include": [
+    "chmod"
+   ],
+   "recall": 0.6666666666666666,
+   "rr": 1.0,
+   "rr_at_k": 1.0,
+   "correct": true,
+   "lost_at": null
+  },
+  {
+   "id": "Q03",
+   "type": "regular",
+   "question": "Сколько места осталось на диске и что его занимает?",
+   "retrieved": [
+    {
+     "id": "D07",
+     "name": "Свободное место на дисках",
+     "command": "df -h",
+     "score": 7.091
+    },
+    {
+     "id": "D09",
+     "name": "Управление дисками",
+     "command": "diskutil <action>",
+     "score": 3.322
+    }
+   ],
+   "answer_type": "found",
+   "answer": "1. Свободное место на дисках\n2. Команда: df -h\n3. Описание: Показывает свободное место на дисках.\n4. Примеры применения:\n   - df -h\n   - df -h /home\n   - df -i\n\n---\n\n1. Управление дисками\n2. Команда: diskutil <action>\n3. Описание: Управляет дисками macOS.\n4. Примеры применения:\n   - diskutil list\n   - diskutil info /\n   - diskutil unmount /Volumes/USB\n\nИсточники: [D07], [D09]",
+   "refusal": false,
+   "llm_error": false,
+   "relevant": [
+    "D07",
+    "D08",
+    "D09"
+   ],
+   "reference": "Свободное место по дискам показывает df -h, размер конкретной папки — du -sh. В macOS диски обслуживает diskutil.",
+   "must_include": [
+    "df -h",
+    "du -sh"
+   ],
+   "recall": 0.6666666666666666,
+   "rr": 1.0,
+   "rr_at_k": 1.0,
+   "correct": false,
+   "lost_at": "поиск: нужная команда не попала в top-k"
+  },
+  {
+   "id": "Q04",
+   "type": "regular",
+   "question": "Какие программы сейчас запущены и как завершить зависшую?",
+   "retrieved": [
+    {
+     "id": "D16",
+     "name": "Список контейнеров",
+     "command": "docker ps",
+     "score": 3.051
+    },
+    {
+     "id": "D12",
+     "name": "Завершение процессов",
+     "command": "kill / killall",
+     "score": 3.033
+    },
+    {
+     "id": "D10",
+     "name": "Список процессов",
+     "command": "ps aux",
+     "score": 2.559
+    }
+   ],
+   "answer_type": "similar",
+   "answer": "Подходящая команда не найдена. Возможно, подойдут указанные ниже варианты?\n\n1. Список контейнеров\n2. Команда: docker ps\n3. Описание: Показывает запущенные контейнеры.\n4. Примеры применения:\n   - docker ps\n   - docker ps -a\n   - docker ps -q\n\n---\n\n1. Завершение процессов\n2. Команда: kill / killall\n3. Описание: Завершает процессы по ID или имени.\n4. Примеры применения:\n   - kill 1234\n   - kill -9 1234\n   - killall python\n\n---\n\n1. Список процессов\n2. Команда: ps aux\n3. Описание: Показывает запущенные процессы.\n4. Примеры применения:\n   - ps aux\n   - ps aux | grep python\n   - ps -ef --forest\n\nИсточники: [D16], [D12], [D10]",
+   "refusal": true,
+   "llm_error": false,
+   "relevant": [
+    "D10",
+    "D11",
+    "D12"
+   ],
+   "reference": "Список процессов — ps aux, живой мониторинг — top или htop. Зависший процесс завершают командой kill (по PID) или killall (по имени).",
+   "must_include": [
+    "ps aux",
+    "kill"
+   ],
+   "recall": 0.6666666666666666,
+   "rr": 0.5,
+   "rr_at_k": 0.5,
+   "correct": false,
+   "lost_at": "тип ответа: команда найдена, но поиск счёл совпадение неуверенным (отказ с подсказками)"
+  },
+  {
+   "id": "Q05",
+   "type": "regular",
+   "question": "Проверить, отвечает ли сервер, и через какие узлы идёт трафик до него",
+   "retrieved": [
+    {
+     "id": "D13",
+     "name": "Ping",
+     "command": "ping <host>",
+     "score": 5.295
+    },
+    {
+     "id": "D14",
+     "name": "Traceroute",
+     "command": "traceroute <host>",
+     "score": 3.172
+    },
+    {
+     "id": "D25",
+     "name": "Подключение к серверу по SSH",
+     "command": "ssh <user>@<host>",
+     "score": 2.62
+    }
+   ],
+   "answer_type": "found",
+   "answer": "1. Ping\n2. Команда: ping <host>\n3. Описание: Проверяет доступность хоста.\n4. Примеры применения:\n   - ping google.com\n   - ping -c 4 8.8.8.8\n   - ping -i 0.5 <host>\n\n---\n\n1. Traceroute\n2. Команда: traceroute <host>\n3. Описание: Показывает маршрут до хоста.\n4. Примеры применения:\n   - traceroute google.com\n   - tracert google.com\n   - traceroute -n 8.8.8.8\n\n---\n\n1. Подключение к серверу по SSH\n2. Команда: ssh <user>@<host>\n3. Описание: Подключается к удалённому серверу.\n4. Примеры применения:\n   - ssh user@host\n   - ssh -p 2222 user@host\n   - ssh -i ~/.ssh/key user@host\n\nИсточники: [D13], [D14], [D25]",
+   "refusal": false,
+   "llm_error": false,
+   "relevant": [
+    "D13",
+    "D14",
+    "D15"
+   ],
+   "reference": "Доступность хоста проверяет ping, маршрут по узлам показывает traceroute, а mtr сочетает обе проверки в реальном времени.",
+   "must_include": [
+    "ping",
+    "traceroute"
+   ],
+   "recall": 0.6666666666666666,
+   "rr": 1.0,
+   "rr_at_k": 1.0,
+   "correct": true,
+   "lost_at": null
+  },
+  {
+   "id": "Q06",
+   "type": "regular",
+   "question": "Посмотреть запущенные контейнеры, их логи и зайти внутрь",
+   "retrieved": [
+    {
+     "id": "D17",
+     "name": "Логи контейнера",
+     "command": "docker logs <container>",
+     "score": 6.745
+    },
+    {
+     "id": "D16",
+     "name": "Список контейнеров",
+     "command": "docker ps",
+     "score": 5.875
+    },
+    {
+     "id": "D18",
+     "name": "Войти в контейнер",
+     "command": "docker exec -it <container> bash",
+     "score": 5.839
+    }
+   ],
+   "answer_type": "found",
+   "answer": "1. Логи контейнера\n2. Команда: docker logs <container>\n3. Описание: Показывает логи контейнера.\n4. Примеры применения:\n   - docker logs myapp\n   - docker logs -f myapp\n   - docker logs --tail 100 myapp\n\n---\n\n1. Список контейнеров\n2. Команда: docker ps\n3. Описание: Показывает запущенные контейнеры.\n4. Примеры применения:\n   - docker ps\n   - docker ps -a\n   - docker ps -q\n\n---\n\n1. Войти в контейнер\n2. Команда: docker exec -it <container> bash\n3. Описание: Запускает команду внутри контейнера.\n4. Примеры применения:\n   - docker exec -it myapp bash\n   - docker exec myapp ls /app\n   - docker exec -u root -it myapp sh\n\nИсточники: [D17], [D16], [D18]",
+   "refusal": false,
+   "llm_error": false,
+   "relevant": [
+    "D16",
+    "D17",
+    "D18"
+   ],
+   "reference": "Запущенные контейнеры — docker ps, вывод приложения — docker logs <container>, войти внутрь — docker exec -it <container> bash.",
+   "must_include": [
+    "docker ps",
+    "docker logs"
+   ],
+   "recall": 1.0,
+   "rr": 1.0,
+   "rr_at_k": 1.0,
+   "correct": true,
+   "lost_at": null
+  },
+  {
+   "id": "Q07",
+   "type": "regular",
+   "question": "Как выбрать из таблицы записи по условию и упорядочить их?",
+   "retrieved": [
+    {
+     "id": "D19",
+     "name": "Выбрать всё",
+     "command": "SELECT * FROM <table>",
+     "score": 7.54
+    },
+    {
+     "id": "D20",
+     "name": "Фильтр WHERE",
+     "command": "SELECT * FROM <table> WHERE <cond>",
+     "score": 3.67
+    }
+   ],
+   "answer_type": "found",
+   "answer": "1. Выбрать всё\n2. Команда: SELECT * FROM <table>\n3. Описание: Выбирает все строки таблицы.\n4. Примеры применения:\n   - SELECT * FROM users\n   - SELECT * FROM orders\n   - SELECT * FROM logs\n\n---\n\n1. Фильтр WHERE\n2. Команда: SELECT * FROM <table> WHERE <cond>\n3. Описание: Фильтрует строки по условию.\n4. Примеры применения:\n   - SELECT * FROM users WHERE age > 18\n   - SELECT * FROM users WHERE city IN ('MSK','SPB')\n   - SELECT * FROM users WHERE name LIKE 'A%'\n\nИсточники: [D19], [D20]",
+   "refusal": false,
+   "llm_error": false,
+   "relevant": [
+    "D19",
+    "D20",
+    "D21"
+   ],
+   "reference": "Выборка делается SELECT ... FROM <table>, условие задаёт WHERE, порядок строк — ORDER BY.",
+   "must_include": [
+    "where",
+    "order by"
+   ],
+   "recall": 0.6666666666666666,
+   "rr": 1.0,
+   "rr_at_k": 1.0,
+   "correct": false,
+   "lost_at": "поиск: нужная команда не попала в top-k"
+  },
+  {
+   "id": "Q08",
+   "type": "regular",
+   "question": "Создать изолированное окружение для проекта и поставить в него зависимости",
+   "retrieved": [
+    {
+     "id": "D22",
+     "name": "Создать виртуальное окружение",
+     "command": "python -m venv .venv",
+     "score": 11.083
+    },
+    {
+     "id": "D24",
+     "name": "Заморозить зависимости",
+     "command": "pip freeze",
+     "score": 3.051
+    },
+    {
+     "id": "D23",
+     "name": "Установить пакет",
+     "command": "pip install <package>",
+     "score": 2.559
+    }
+   ],
+   "answer_type": "found",
+   "answer": "1. Создать виртуальное окружение\n2. Команда: python -m venv .venv\n3. Описание: Создаёт изолированное окружение.\n4. Примеры применения:\n   - python -m venv .venv\n   - python3 -m venv .venv\n   - .venv/bin/activate\n\n---\n\n1. Заморозить зависимости\n2. Команда: pip freeze\n3. Описание: Выводит список установленных пакетов.\n4. Примеры применения:\n   - pip freeze\n   - pip freeze > requirements.txt\n   - pip freeze | grep django\n\n---\n\n1. Установить пакет\n2. Команда: pip install <package>\n3. Описание: Устанавливает пакет из PyPI.\n4. Примеры применения:\n   - pip install requests\n   - pip install -r requirements.txt\n   - pip install -U pip\n\nИсточники: [D22], [D24], [D23]",
+   "refusal": false,
+   "llm_error": false,
+   "relevant": [
+    "D22",
+    "D23",
+    "D24"
+   ],
+   "reference": "Окружение создаёт python -m venv .venv, пакеты ставит pip install <package>, список зависимостей для проекта фиксирует pip freeze.",
+   "must_include": [
+    "venv",
+    "pip install"
+   ],
+   "recall": 1.0,
+   "rr": 1.0,
+   "rr_at_k": 1.0,
+   "correct": true,
+   "lost_at": null
+  },
+  {
+   "id": "Q09",
+   "type": "regular",
+   "question": "Подключиться к удалённому серверу и передать на него файлы",
+   "retrieved": [
+    {
+     "id": "D25",
+     "name": "Подключение к серверу по SSH",
+     "command": "ssh <user>@<host>",
+     "score": 8.686
+    },
+    {
+     "id": "D27",
+     "name": "Синхронизация файлов",
+     "command": "rsync -avz <src> <dst>",
+     "score": 3.753
+    },
+    {
+     "id": "D13",
+     "name": "Ping",
+     "command": "ping <host>",
+     "score": 2.217
+    }
+   ],
+   "answer_type": "found",
+   "answer": "1. Подключение к серверу по SSH\n2. Команда: ssh <user>@<host>\n3. Описание: Подключается к удалённому серверу.\n4. Примеры применения:\n   - ssh user@host\n   - ssh -p 2222 user@host\n   - ssh -i ~/.ssh/key user@host\n\n---\n\n1. Синхронизация файлов\n2. Команда: rsync -avz <src> <dst>\n3. Описание: Синхронизирует файлы между папками и серверами.\n4. Примеры применения:\n   - rsync -avz src/ user@host:/dst/\n   - rsync -avz --delete src/ dst/\n   - rsync -avz -e ssh src/ user@host:/dst/\n\n---\n\n1. Ping\n2. Команда: ping <host>\n3. Описание: Проверяет доступность хоста.\n4. Примеры применения:\n   - ping google.com\n   - ping -c 4 8.8.8.8\n   - ping -i 0.5 <host>\n\nИсточники: [D25], [D27], [D13]",
+   "refusal": false,
+   "llm_error": false,
+   "relevant": [
+    "D25",
+    "D26",
+    "D27"
+   ],
+   "reference": "Подключение — ssh <user>@<host>, разовое копирование — scp, синхронизация каталогов с докачкой — rsync -avz.",
+   "must_include": [
+    "ssh",
+    "scp"
+   ],
+   "recall": 0.6666666666666666,
+   "rr": 1.0,
+   "rr_at_k": 1.0,
+   "correct": false,
+   "lost_at": "поиск: нужная команда не попала в top-k"
+  },
+  {
+   "id": "Q10",
+   "type": "regular",
+   "question": "Найти строку текста внутри файлов и найти файл по имени",
+   "retrieved": [
+    {
+     "id": "D29",
+     "name": "Поиск файлов",
+     "command": "find <path> <criteria>",
+     "score": 11.547
+    },
+    {
+     "id": "D30",
+     "name": "Поиск в файлах",
+     "command": "Select-String -Pattern <p> -Path <path>",
+     "score": 6.578
+    },
+    {
+     "id": "D28",
+     "name": "Поиск текста в файлах",
+     "command": "grep -r <pattern> <path>",
+     "score": 6.453
+    }
+   ],
+   "answer_type": "found",
+   "answer": "1. Поиск файлов\n2. Команда: find <path> <criteria>\n3. Описание: Ищет файлы по имени, размеру, дате, типу.\n4. Примеры применения:\n   - find . -name \"*.py\"\n   - find /tmp -size +100M\n   - find . -mtime -7 -type f\n\n---\n\n1. Поиск в файлах\n2. Команда: Select-String -Pattern <p> -Path <path>\n3. Описание: Ищет текст в файлах.\n4. Примеры применения:\n   - Select-String -Pattern \"error\" -Path *.log\n   - Select-String -Pattern \"todo\" -Path src\\*\n   - Select-String -Pattern \"fail\" -Path *.txt\n\n---\n\n1. Поиск текста в файлах\n2. Команда: grep -r <pattern> <path>\n3. Описание: Ищет текст в файлах рекурсивно.\n4. Примеры применения:\n   - grep \"error\" app.log\n   - grep -rin \"todo\" src/\n   - grep -v \"^#\" config.conf\n\nИсточники: [D29], [D30], [D28]",
+   "refusal": false,
+   "llm_error": false,
+   "relevant": [
+    "D28",
+    "D29",
+    "D30"
+   ],
+   "reference": "Текст внутри файлов ищет grep -r, файлы по имени и условиям — find. В Windows поиск по содержимому — Select-String.",
+   "must_include": [
+    "grep",
+    "find"
+   ],
+   "recall": 1.0,
+   "rr": 1.0,
+   "rr_at_k": 1.0,
+   "correct": true,
+   "lost_at": null
+  },
+  {
+   "id": "T01",
+   "type": "trap",
+   "question": "Как настроить файрвол и открыть порт 443 на сервере?",
+   "retrieved": [
+    {
+     "id": "D25",
+     "name": "Подключение к серверу по SSH",
+     "command": "ssh <user>@<host>",
+     "score": 2.62
+    },
+    {
+     "id": "D13",
+     "name": "Ping",
+     "command": "ping <host>",
+     "score": 2.217
+    },
+    {
+     "id": "D27",
+     "name": "Синхронизация файлов",
+     "command": "rsync -avz <src> <dst>",
+     "score": 2.093
+    }
+   ],
+   "answer_type": "similar",
+   "answer": "Подходящая команда не найдена. Возможно, подойдут указанные ниже варианты?\n\n1. Подключение к серверу по SSH\n2. Команда: ssh <user>@<host>\n3. Описание: Подключается к удалённому серверу.\n4. Примеры применения:\n   - ssh user@host\n   - ssh -p 2222 user@host\n   - ssh -i ~/.ssh/key user@host\n\n---\n\n1. Ping\n2. Команда: ping <host>\n3. Описание: Проверяет доступность хоста.\n4. Примеры применения:\n   - ping google.com\n   - ping -c 4 8.8.8.8\n   - ping -i 0.5 <host>\n\n---\n\n1. Синхронизация файлов\n2. Команда: rsync -avz <src> <dst>\n3. Описание: Синхронизирует файлы между папками и серверами.\n4. Примеры применения:\n   - rsync -avz src/ user@host:/dst/\n   - rsync -avz --delete src/ dst/\n   - rsync -avz -e ssh src/ user@host:/dst/\n\nИсточники: [D25], [D13], [D27]",
+   "refusal": true,
+   "llm_error": false,
+   "correct": true,
+   "lost_at": null
+  },
+  {
+   "id": "T02",
+   "type": "trap",
+   "question": "Как упаковать папку в архив tar.gz?",
+   "retrieved": [
+    {
+     "id": "D08",
+     "name": "Размер папки",
+     "command": "du -sh <path>",
+     "score": 3.219
+    },
+    {
+     "id": "D27",
+     "name": "Синхронизация файлов",
+     "command": "rsync -avz <src> <dst>",
+     "score": 2.415
+    }
+   ],
+   "answer_type": "similar",
+   "answer": "Подходящая команда не найдена. Возможно, подойдут указанные ниже варианты?\n\n1. Размер папки\n2. Команда: du -sh <path>\n3. Описание: Показывает суммарный размер папки.\n4. Примеры применения:\n   - du -sh /var/log\n   - du -sh ~/Downloads\n   - du -sh * | sort -h\n\n---\n\n1. Синхронизация файлов\n2. Команда: rsync -avz <src> <dst>\n3. Описание: Синхронизирует файлы между папками и серверами.\n4. Примеры применения:\n   - rsync -avz src/ user@host:/dst/\n   - rsync -avz --delete src/ dst/\n   - rsync -avz -e ssh src/ user@host:/dst/\n\nИсточники: [D08], [D27]",
+   "refusal": true,
+   "llm_error": false,
+   "correct": true,
+   "lost_at": null
+  },
+  {
+   "id": "T03",
+   "type": "trap",
+   "question": "Как создать ветку в git и слить её с основной?",
+   "retrieved": [
+    {
+     "id": "D22",
+     "name": "Создать виртуальное окружение",
+     "command": "python -m venv .venv",
+     "score": 3.606
+    },
+    {
+     "id": "D03",
+     "name": "Reflog",
+     "command": "git reflog",
+     "score": 2.667
+    },
+    {
+     "id": "D01",
+     "name": "Сброс изменений",
+     "command": "git reset <mode> <commit>",
+     "score": 2.597
+    }
+   ],
+   "answer_type": "similar",
+   "answer": "Подходящая команда не найдена. Возможно, подойдут указанные ниже варианты?\n\n1. Создать виртуальное окружение\n2. Команда: python -m venv .venv\n3. Описание: Создаёт изолированное окружение.\n4. Примеры применения:\n   - python -m venv .venv\n   - python3 -m venv .venv\n   - .venv/bin/activate\n\n---\n\n1. Reflog\n2. Команда: git reflog\n3. Описание: Показывает историю перемещений HEAD.\n4. Примеры применения:\n   - git reflog\n   - git reflog show main\n   - git reset --hard HEAD@{2}\n\n---\n\n1. Сброс изменений\n2. Команда: git reset <mode> <commit>\n3. Описание: Сбрасывает состояние репозитория.\n4. Примеры применения:\n   - git reset --soft HEAD~1\n   - git reset --hard HEAD\n   - git reset file.txt\n\nИсточники: [D22], [D03], [D01]",
+   "refusal": true,
+   "llm_error": false,
+   "correct": true,
+   "lost_at": null
+  },
+  {
+   "id": "T04",
+   "type": "trap",
+   "question": "Как сделать резервную копию базы данных SQL?",
+   "retrieved": [
+    {
+     "id": "D19",
+     "name": "Выбрать всё",
+     "command": "SELECT * FROM <table>",
+     "score": 2.32
+    },
+    {
+     "id": "D21",
+     "name": "Сортировка ORDER BY",
+     "command": "SELECT * FROM <table> ORDER BY <col>",
+     "score": 2.285
+    },
+    {
+     "id": "D20",
+     "name": "Фильтр WHERE",
+     "command": "SELECT * FROM <table> WHERE <cond>",
+     "score": 2.217
+    }
+   ],
+   "answer_type": "similar",
+   "answer": "Подходящая команда не найдена. Возможно, подойдут указанные ниже варианты?\n\n1. Выбрать всё\n2. Команда: SELECT * FROM <table>\n3. Описание: Выбирает все строки таблицы.\n4. Примеры применения:\n   - SELECT * FROM users\n   - SELECT * FROM orders\n   - SELECT * FROM logs\n\n---\n\n1. Сортировка ORDER BY\n2. Команда: SELECT * FROM <table> ORDER BY <col>\n3. Описание: Сортирует результат.\n4. Примеры применения:\n   - SELECT * FROM users ORDER BY age\n   - SELECT * FROM users ORDER BY age DESC\n   - SELECT * FROM users ORDER BY city, age DESC\n\n---\n\n1. Фильтр WHERE\n2. Команда: SELECT * FROM <table> WHERE <cond>\n3. Описание: Фильтрует строки по условию.\n4. Примеры применения:\n   - SELECT * FROM users WHERE age > 18\n   - SELECT * FROM users WHERE city IN ('MSK','SPB')\n   - SELECT * FROM users WHERE name LIKE 'A%'\n\nИсточники: [D19], [D21], [D20]",
+   "refusal": true,
+   "llm_error": false,
+   "correct": true,
+   "lost_at": null
+  },
+  {
+   "id": "T05",
+   "type": "trap",
+   "question": "Как запустить автотесты и посмотреть покрытие кода?",
+   "retrieved": [
+    {
+     "id": "D16",
+     "name": "Список контейнеров",
+     "command": "docker ps",
+     "score": 3.051
+    },
+    {
+     "id": "D10",
+     "name": "Список процессов",
+     "command": "ps aux",
+     "score": 2.559
+    }
+   ],
+   "answer_type": "similar",
+   "answer": "Подходящая команда не найдена. Возможно, подойдут указанные ниже варианты?\n\n1. Список контейнеров\n2. Команда: docker ps\n3. Описание: Показывает запущенные контейнеры.\n4. Примеры применения:\n   - docker ps\n   - docker ps -a\n   - docker ps -q\n\n---\n\n1. Список процессов\n2. Команда: ps aux\n3. Описание: Показывает запущенные процессы.\n4. Примеры применения:\n   - ps aux\n   - ps aux | grep python\n   - ps -ef --forest\n\nИсточники: [D16], [D10]",
+   "refusal": true,
+   "llm_error": false,
+   "correct": true,
+   "lost_at": null
+  }
+ ]
+}

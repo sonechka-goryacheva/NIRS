@@ -36,7 +36,16 @@ PROMPT = """Ты — справочник IT-команд.
 Если точного совпадения нет — верни сообщение
 «Подходящая команда не найдена. Возможно, подойдут указанные ниже варианты?»
 и команды из контекста.
+В конце одной строкой укажи источники — ID использованных команд из контекста в квадратных скобках:
+«Источники: [ID], [ID]».
 """
+
+# Поиск нашёл только похожие команды (тип ответа similar): ответ начинается с этого сообщения
+SIMILAR_NOTICE = "Подходящая команда не найдена. Возможно, подойдут указанные ниже варианты?"
+SIMILAR_HINT = (
+    "\nУверенного совпадения в контексте нет: начни ответ со строки "
+    f"«{SIMILAR_NOTICE}» и затем покажи команды из контекста."
+)
 
 # Ответ, когда поиск ничего не нашёл (spec/product/answer_format.md): LLM не вызывается — ей не на что опереться
 NOTHING_FOUND = "Подходящая команда не найдена. Попробуйте описать задачу другими словами."
@@ -49,6 +58,7 @@ def build_context(docs: list[dict]) -> str:
     lines = []
     for d in docs:
         block = [
+            *([f"[{d['id']}]"] if d.get("id") else []),
             f"Название: {d.get('name', '')}",
             f"Команда: {d.get('command', '')}",
             f"Описание: {d.get('description', '')}",
@@ -61,7 +71,13 @@ def build_context(docs: list[dict]) -> str:
     return "\n\n---\n\n".join(lines)
 
 
-def _stub_answer(query: str, docs: list[dict]) -> str:
+def sources_line(docs: list[dict]) -> str:
+    """Строка со ссылками на источники: «Источники: [git-3], [git-12]» (пусто, если у команд нет ID)."""
+    ids = [f"[{d['id']}]" for d in docs if d.get("id")]
+    return "Источники: " + ", ".join(ids) if ids else ""
+
+
+def _stub_answer(query: str, docs: list[dict], kind: str = "found") -> str:
     if not docs:
         return NOTHING_FOUND
 
@@ -75,10 +91,14 @@ def _stub_answer(query: str, docs: list[dict]) -> str:
             + "\n".join(f"   - {ex}" for ex in d.get("examples", []))
         )
 
-    return "\n\n---\n\n".join(parts)
+    text = "\n\n---\n\n".join(parts)
+    if kind == "similar":
+        text = SIMILAR_NOTICE + "\n\n" + text
+    src = sources_line(docs)
+    return text + ("\n\n" + src if src else "")
 
 
-def _real_answer(query: str, docs: list[dict]) -> str:
+def _real_answer(query: str, docs: list[dict], kind: str = "found") -> str:
     from openai import OpenAI
 
     api_key = os.getenv("OPENAI_API_KEY")
@@ -87,7 +107,7 @@ def _real_answer(query: str, docs: list[dict]) -> str:
 
     client = OpenAI(api_key=api_key)
     context = build_context(docs)
-    prompt = PROMPT.format(query=query, context=context)
+    prompt = PROMPT.format(query=query, context=context) + (SIMILAR_HINT if kind == "similar" else "")
 
     response = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -100,20 +120,24 @@ def _real_answer(query: str, docs: list[dict]) -> str:
     return response.choices[0].message.content.strip()
 
 
-def ask_llm(query: str, docs: list[dict]) -> str:
+def ask_llm(query: str, docs: list[dict], kind: str = "found", stub: bool | None = None) -> str:
+    """
+    Ответ по найденным командам. kind — тип ответа поиска (found / similar), stub — принудительно
+    заглушка (True) или настоящая LLM (False); None — по USE_STUB из .env.
+    """
     if not docs:  # защита от выдумок: без найденных команд нейросеть не спрашиваем
         return NOTHING_FOUND
-    if USE_STUB:
-        return _stub_answer(query, docs)
+    if USE_STUB if stub is None else stub:
+        return _stub_answer(query, docs, kind)
 
     try:
-        return _real_answer(query, docs)
+        return _real_answer(query, docs, kind)
     except Exception as e:
         return (
             "Не удалось получить ответ от нейросети. "
             f"Ошибка: {e}\n\n"
             "Показываю найденные команды без обработки:\n\n"
-            + _stub_answer(query, docs)
+            + _stub_answer(query, docs, kind)
         )
 
 

@@ -118,11 +118,12 @@ def variants(base: Config) -> list[tuple[str, Config]]:
         ("+ примеры применения", replace(base, weights={**w, "examples": 1})),
         ("b = 0 (без нормализации длины)", replace(base, b=0.0)),
         ("b = 1 (полная нормализация)", replace(base, b=1.0)),
+        ("k1 = 1.2 (значение из примера методички)", replace(base, k1=1.2)),
         ("k1 = 2.0", replace(base, k1=2.0)),
     ]
 
 
-def grid(corpus, queries, base: Config, k1s=(0.9, 1.2, 1.5, 2.0), bs=(0.0, 0.25, 0.5, 0.75, 1.0)) -> dict:
+def grid(corpus, queries, base: Config, k1s=(0.5, 0.9, 1.2, 1.5, 2.0), bs=(0.0, 0.25, 0.5, 0.75, 1.0)) -> dict:
     out = {}
     for k1 in k1s:
         for b in bs:
@@ -134,8 +135,9 @@ def grid(corpus, queries, base: Config, k1s=(0.9, 1.2, 1.5, 2.0), bs=(0.0, 0.25,
 def negatives(engine: SearchEngine, data: dict) -> dict:
     """Типы ответа: не по теме → nothing; по теме → не nothing."""
     neg = {q: engine.answer(q)["type"] for q in data.get("negative", [])}
+    traps = {q: engine.answer(q)["type"] for q in data.get("traps", [])}
     pos = Counter(engine.answer(q["query"])["type"] for q in data["queries"])
-    return {"negative": neg, "positive_types": dict(pos)}
+    return {"negative": neg, "traps": traps, "positive_types": dict(pos)}
 
 
 if __name__ == "__main__":

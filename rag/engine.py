@@ -25,8 +25,10 @@ class Config:
     Повтор поля — простой способ поднять его TF без изменения формулы BM25.
     """
 
-    k1: float = 1.2
+    k1: float = 0.5          # подобран перебором (python -m rag tune, REPORT.md, раздел 4); в методичке для примера 1,2
     b: float = 0.75
+    found_min_score: float = 5.0       # тип ответа found: оценка лучшего документа BM25 не ниже порога
+    found_min_coverage: float = 0.0    # и он содержит не меньше этой доли термов запроса (0 — условие выключено)
     text: TextConfig = TextConfig()
     weights: dict = field(default_factory=lambda: {"name": 1, "command": 1, "description": 1, "tags": 1, "examples": 0})
 
@@ -44,9 +46,9 @@ class Hit:
     contributions: list[Contribution]
 
 
-# Тип ответа для чата (spec/tech/api.md, «Правила ответа»): found / similar / nothing.
-FOUND_MIN_COVERAGE = 0.5   # лучший документ содержит не меньше половины термов запроса
-FOUND_MIN_SCORE = 5.0      # и его оценка BM25 не ниже порога (REPORT.md, раздел 6)
+def answer_type(score: float, coverage: float, config: Config) -> str:
+    """found — уверенное совпадение, similar — только похожие (тип nothing определяет пустая выдача). REPORT.md, раздел 6."""
+    return "found" if score >= config.found_min_score and coverage >= config.found_min_coverage else "similar"
 
 
 def corpus_signature(corpus_dir) -> tuple:
@@ -114,9 +116,7 @@ class SearchEngine:
             return {"type": "nothing", "hits": []}
         top = hits[0]
         coverage = len({c.term for c in top.contributions}) / len(q)
-        if coverage >= FOUND_MIN_COVERAGE and top.score >= FOUND_MIN_SCORE:
-            return {"type": "found", "hits": hits}
-        return {"type": "similar", "hits": hits}
+        return {"type": answer_type(top.score, coverage, self.config), "hits": hits}
 
     def trace(self, query: str):
         return trace(query, self.config.text)
