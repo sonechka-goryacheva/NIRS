@@ -1,21 +1,21 @@
 /** Вход и регистрация: маршруты #/login и #/register; гостевой вход; «Забыли пароль?» */
-import { $, h, esc } from "../ui/dom.js?v=202611160130";
-import { icon } from "../ui/icons.js?v=202611160130";
-import { openModal, modalHead } from "../ui/modal.js?v=202611160130";
-import { toast } from "../ui/toast.js?v=202611160130";
-import { field, setFieldError, clearErrors, formAlert, showApiError, values, busy } from "../ui/forms.js?v=202611160130";
-import { authApi } from "../api/index.js?v=202611160130";
-import { session } from "../session.js?v=202611160130";
-import { themeButtonHtml } from "../ui/theme-toggle.js?v=202611160130";
-import * as router from "../router.js?v=202611160130";
-import { unmount } from "./shell.js?v=202611160130";
-import { resetChatState } from "./chat.js?v=202611160130";
+import { $, h, esc } from "../ui/dom.js?v=202611161110";
+import { icon } from "../ui/icons.js?v=202611161110";
+import { openModal, modalHead } from "../ui/modal.js?v=202611161110";
+import { toast } from "../ui/toast.js?v=202611161110";
+import { field, setFieldError, clearErrors, formAlert, showApiError, values, busy } from "../ui/forms.js?v=202611161110";
+import { authApi } from "../api/index.js?v=202611161110";
+import { session } from "../session.js?v=202611161110";
+import { themeButtonHtml } from "../ui/theme-toggle.js?v=202611161110";
+import * as router from "../router.js?v=202611161110";
+import { unmount } from "./shell.js?v=202611161110";
+import { resetChatState } from "./chat.js?v=202611161110";
 
 let artSvg = null;
 async function loadArt() {
   if (artSvg !== null) return artSvg;
-  try { artSvg = await (await fetch("assets/img/auth-keys.svg?v=202611160130", { cache: "no-cache" })).text(); }
-  catch { artSvg = '<img class="hero-art" src="assets/img/auth-keys.svg?v=202611160130" alt="" />'; }
+  try { artSvg = await (await fetch("assets/img/auth-keys.svg?v=202611161110", { cache: "no-cache" })).text(); }
+  catch { artSvg = '<img class="hero-art" src="assets/img/auth-keys.svg?v=202611161110" alt="" />'; }
   return artSvg;
 }
 

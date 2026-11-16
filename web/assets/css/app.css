@@ -211,12 +211,8 @@
 .crumbs svg { width: 1rem; height: 1rem; color: var(--text-3); }
 .crumbs span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* Вкладки */
-.tabs { display: inline-flex; padding: 0.25rem; gap: 0.25rem; border-radius: 0.75rem; background: var(--tint-1); border: 1px solid var(--hairline); }
-.tabs a { height: 2.125rem; padding: 0 0.875rem; border-radius: 0.5625rem; display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-2); font-size: 0.9375rem; font-weight: 500; }
-.tabs a:hover { color: var(--text-1); }
-.tabs a svg { width: 1rem; height: 1rem; }
-.tabs a[aria-selected="true"] { background: var(--surface); color: var(--text-1); box-shadow: inset 0 0 0 1px var(--glass-border), var(--shadow-soft); }
+/* Заголовок окна (администрирование) — того же размера, что крошки датасета */
+.mw-title { margin: 0; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; color: var(--text-1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* Датасет: категории */
 .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(13.125rem, 1fr)); gap: 0.75rem; }
@@ -369,9 +365,6 @@
 .modal-cmd { width: min(44rem, 100%); }
 .modal-cmd .form-grid { gap: 1rem 1.25rem; }
 .modal-cmd .modal-actions .btn-danger { margin-right: auto; }
-
-/* ---------- Пользователи: подробности в окне «Изменить» ---------- */
-.user-kv { margin-bottom: 1.125rem; }
 
 /* ---------- Обучение ---------- */
 .learn-intro { margin: 0 0 1.125rem; color: var(--text-2); max-width: 70ch; }

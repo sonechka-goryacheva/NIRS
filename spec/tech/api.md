@@ -23,7 +23,7 @@
 ## Типы
 
     User       = {login, role: "guest"|"user"|"admin", created_at, last_login_at | null}
-    AdminUser  = User + {chats_count, my_commands_count}   # гости в /admin/users не попадают
+    AdminUser  = User + {chats_count}            # гости в /admin/users не попадают
     Category   = {key, label, count, personal?}  # personal: true — «Мои команды» (key "my")
     Command    = {id, category, name, command, description, examples: [3 строки], tags: [≥5 строк],
                   platform: "linux"|"mac"|"windows"|"unix"|"cross"}

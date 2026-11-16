@@ -1,12 +1,12 @@
 /** Чат: маршруты #/chat и #/chat/:id */
-import { $, h, esc, setTitle } from "../ui/dom.js?v=202611160130";
-import { icon } from "../ui/icons.js?v=202611160130";
-import { commandCard } from "../ui/command-card.js?v=202611160130";
-import { chatsApi } from "../api/index.js?v=202611160130";
-import * as router from "../router.js?v=202611160130";
-import { getCategories } from "./categories.js?v=202611160130";
-import { isMounted, mountShell, refreshChats, setActiveChat, hideOverlay, setActiveNav } from "./shell.js?v=202611160130";
-import { session } from "../session.js?v=202611160130";
+import { $, h, esc, setTitle } from "../ui/dom.js?v=202611161110";
+import { icon } from "../ui/icons.js?v=202611161110";
+import { commandCard } from "../ui/command-card.js?v=202611161110";
+import { chatsApi } from "../api/index.js?v=202611161110";
+import * as router from "../router.js?v=202611161110";
+import { getCategories } from "./categories.js?v=202611161110";
+import { isMounted, mountShell, refreshChats, setActiveChat, hideOverlay, setActiveNav } from "./shell.js?v=202611161110";
+import { session } from "../session.js?v=202611161110";
 
 const SUGGESTIONS = [
   ["Проблема", "Не хватает прав при запуске скрипта"],
@@ -116,7 +116,7 @@ function focusInput() { if (!matchMedia("(max-width: 900px)").matches) $("#q")?.
 
 function renderEmpty(inner) {
   inner.innerHTML = `<div class="empty">
-    <img src="assets/img/logo.svg?v=202611160130" alt="" />
+    <img src="assets/img/logo.svg?v=202611161110" alt="" />
     <h1>Какую команду ищем?</h1>
     <p>Введите запрос — опишите задачу своими словами или вставьте команду, которую нужно объяснить.</p>
     <div class="suggest">${SUGGESTIONS.map(([k, t]) => `<button type="button" data-suggest="${esc(t)}"><span class="eyebrow">${esc(k)}</span>${esc(t)}</button>`).join("")}</div>
@@ -129,7 +129,7 @@ function appendMessage(m) {
     inner.insertAdjacentHTML("beforeend", `<div class="msg-user"><div class="bubble-user">${esc(m.text)}</div></div>`);
     return null;
   }
-  const node = h(`<div class="msg-bot"><img src="assets/img/logo.svg?v=202611160130" alt="" /><div class="bot-body"></div></div>`);
+  const node = h(`<div class="msg-bot"><img src="assets/img/logo.svg?v=202611161110" alt="" /><div class="bot-body"></div></div>`);
   fillReply(node, m.reply);
   inner.appendChild(node);
   return node;

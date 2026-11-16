@@ -8,23 +8,23 @@
  *   #/learn, #/learn/:topic        — обучение: темы и тест (поверх чата)
  *   #/admin/commands, #/admin/users — только admin (поверх чата)
  */
-import "./theme.js?v=202611160130"; // тема до первой отрисовки
-import "./ui/select.js?v=202611160130"; // выпадающие списки в стиле темы
-import { CONFIG } from "./config.js?v=202611160130";
-if (CONFIG.useMock) await import("./mock/index.js?v=202611160130");
+import "./theme.js?v=202611161110"; // тема до первой отрисовки
+import "./ui/select.js?v=202611161110"; // выпадающие списки в стиле темы
+import { CONFIG } from "./config.js?v=202611161110";
+if (CONFIG.useMock) await import("./mock/index.js?v=202611161110");
 
-import * as router from "./router.js?v=202611160130";
-import { session } from "./session.js?v=202611160130";
-import { onUnauthorized } from "./api/http.js?v=202611160130";
-import { toast } from "./ui/toast.js?v=202611160130";
-import { authView } from "./views/auth.js?v=202611160130";
-import { chatView } from "./views/chat.js?v=202611160130";
-import { datasetView } from "./views/dataset.js?v=202611160130";
-import { profileView } from "./views/profile.js?v=202611160130";
-import { adminCommandsView, adminUsersView } from "./views/admin.js?v=202611160130";
-import { notFoundView } from "./views/errors.js?v=202611160130";
-import { learnView } from "./views/learn.js?v=202611160130";
-import { getCategories } from "./views/categories.js?v=202611160130";
+import * as router from "./router.js?v=202611161110";
+import { session } from "./session.js?v=202611161110";
+import { onUnauthorized } from "./api/http.js?v=202611161110";
+import { toast } from "./ui/toast.js?v=202611161110";
+import { authView } from "./views/auth.js?v=202611161110";
+import { chatView } from "./views/chat.js?v=202611161110";
+import { datasetView } from "./views/dataset.js?v=202611161110";
+import { profileView } from "./views/profile.js?v=202611161110";
+import { adminCommandsView, adminUsersView } from "./views/admin.js?v=202611161110";
+import { notFoundView } from "./views/errors.js?v=202611161110";
+import { learnView } from "./views/learn.js?v=202611161110";
+import { getCategories } from "./views/categories.js?v=202611161110";
 
 router.define("/", () => router.go(session.user ? "/chat" : "/login", { replace: true }), { auth: false });
 router.define("/login", (ctx) => authView(ctx, "login"), { auth: false, guestOnly: true });

@@ -1,15 +1,15 @@
 /** Профиль: #/profile — данные учётной записи, тема оформления, пароль и код восстановления. */
-import { $, h, esc, formatDate, roleLabel, setTitle } from "../ui/dom.js?v=202611160130";
-import { icon } from "../ui/icons.js?v=202611160130";
-import { modalHead, confirmDialog } from "../ui/modal.js?v=202611160130";
-import { toast } from "../ui/toast.js?v=202611160130";
-import { authApi } from "../api/index.js?v=202611160130";
-import { session } from "../session.js?v=202611160130";
-import { themeMode, setThemeMode } from "../theme.js?v=202611160130";
-import * as router from "../router.js?v=202611160130";
-import { showOverlay, setActiveNav } from "./shell.js?v=202611160130";
-import { ensureChatBehind } from "./chat.js?v=202611160130";
-import { openChangePassword, showRecoveryCode } from "./auth.js?v=202611160130";
+import { $, h, esc, formatDate, roleLabel, setTitle } from "../ui/dom.js?v=202611161110";
+import { icon } from "../ui/icons.js?v=202611161110";
+import { modalHead, confirmDialog } from "../ui/modal.js?v=202611161110";
+import { toast } from "../ui/toast.js?v=202611161110";
+import { authApi } from "../api/index.js?v=202611161110";
+import { session } from "../session.js?v=202611161110";
+import { themeMode, setThemeMode } from "../theme.js?v=202611161110";
+import * as router from "../router.js?v=202611161110";
+import { showOverlay, setActiveNav } from "./shell.js?v=202611161110";
+import { ensureChatBehind } from "./chat.js?v=202611161110";
+import { openChangePassword, showRecoveryCode } from "./auth.js?v=202611161110";
 
 const THEMES = [["light", "sun", "Светлая"], ["dark", "moon", "Тёмная"], ["system", "monitor", "Как в системе"]];
 

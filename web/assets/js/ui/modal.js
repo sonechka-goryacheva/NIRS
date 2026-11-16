@@ -1,6 +1,6 @@
 /** Модальные окна и подтверждения (вместо alert/confirm/prompt). */
-import { $, $$, h, esc } from "./dom.js?v=202611160130";
-import { icon } from "./icons.js?v=202611160130";
+import { $, $$, h, esc } from "./dom.js?v=202611161110";
+import { icon } from "./icons.js?v=202611161110";
 
 /**
  * Показывает node внутри затемнения. Закрытие: [data-close], Esc, клик по фону.

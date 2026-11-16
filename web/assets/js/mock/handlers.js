@@ -2,9 +2,9 @@
  * Обработчики мок-сервера. Повторяют контракт spec/tech/api.md:
  * те же пути, статусы, тексты ошибок и проверки прав, что должен делать бэкенд.
  */
-import { route, HttpError } from "./router.js?v=202611160130";
-import { db, save, nextId, setSession, currentUser } from "./db.js?v=202611160130";
-import { answer } from "./search.js?v=202611160130";
+import { route, HttpError } from "./router.js?v=202611161110";
+import { db, save, nextId, setSession, currentUser } from "./db.js?v=202611161110";
+import { answer } from "./search.js?v=202611161110";
 
 const now = () => new Date().toISOString();
 const ROLES = ["user", "admin"];
@@ -18,8 +18,7 @@ const notFound = (detail = "Не найдено") => new HttpError(404, detail);
 const conflict = (detail, field = null) => new HttpError(409, detail, field);
 
 const publicUser = (login, u) => ({ login, role: u.role, created_at: u.created_at, last_login_at: u.last_login_at || null });
-const adminUser = (login, u) => ({ ...publicUser(login, u), chats_count: db().chats.filter((c) => c.owner === login).length,
-  my_commands_count: (db().my_commands[login] || []).length });
+const adminUser = (login, u) => ({ ...publicUser(login, u), chats_count: db().chats.filter((c) => c.owner === login).length });
 const chatSummary = (c) => ({ id: c.id, title: c.title, created_at: c.created_at, updated_at: c.updated_at });
 const adminsCount = () => Object.values(db().users).filter((u) => u.role === "admin").length;
 

@@ -1,5 +1,5 @@
 /** Таблица маршрутов мок-сервера: метод + путь с параметрами (:id) → обработчик. */
-import { currentUser, db, save } from "./db.js?v=202611160130";
+import { currentUser, db, save } from "./db.js?v=202611161110";
 
 export class HttpError extends Error {
   constructor(status, detail, field = null) { super(detail); this.status = status; this.field = field; }

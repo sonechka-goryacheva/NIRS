@@ -1,5 +1,5 @@
 /** «База данных» мок-сервера в localStorage (в памяти, если хранилище недоступно). */
-import { CATEGORIES, CORPUS } from "./corpus.js?v=202611160130";
+import { CATEGORIES, CORPUS } from "./corpus.js?v=202611161110";
 
 const KEY = "nirs.mock.db.v2";
 const SESSION_KEY = "nirs.mock.session"; // имитация httpOnly-cookie

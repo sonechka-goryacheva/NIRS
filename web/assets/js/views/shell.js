@@ -2,14 +2,14 @@
  * Каркас приложения после входа: боковая панель + область чата + слой для модальных маршрутов
  * (#/dataset, #/profile, #/admin/...). Каркас создаётся один раз и переживает смену маршрутов.
  */
-import { $, $$, h, esc, roleLabel } from "../ui/dom.js?v=202611160130";
-import { icon } from "../ui/icons.js?v=202611160130";
-import { openModal, confirmDialog } from "../ui/modal.js?v=202611160130";
-import { toast } from "../ui/toast.js?v=202611160130";
-import { chatsApi } from "../api/index.js?v=202611160130";
-import { themeButtonHtml } from "../ui/theme-toggle.js?v=202611160130";
-import { session } from "../session.js?v=202611160130";
-import * as router from "../router.js?v=202611160130";
+import { $, $$, h, esc, roleLabel } from "../ui/dom.js?v=202611161110";
+import { icon } from "../ui/icons.js?v=202611161110";
+import { openModal, confirmDialog } from "../ui/modal.js?v=202611161110";
+import { toast } from "../ui/toast.js?v=202611161110";
+import { chatsApi } from "../api/index.js?v=202611161110";
+import { themeButtonHtml } from "../ui/theme-toggle.js?v=202611161110";
+import { session } from "../session.js?v=202611161110";
+import * as router from "../router.js?v=202611161110";
 
 let mounted = false;
 let overlayClose = null;
@@ -37,7 +37,7 @@ export function mountShell() {
     <aside class="sidebar" aria-label="Боковая панель">
       <div class="sidebar-inner">
         <div class="side-head">
-          <a class="brand" href="#/chat"><img src="assets/img/logo.svg?v=202611160130" alt="" /><span>Справочник<small>IT-команд</small></span></a>
+          <a class="brand" href="#/chat"><img src="assets/img/logo.svg?v=202611161110" alt="" /><span>Справочник<small>IT-команд</small></span></a>
           <div class="side-head-tools">
             ${themeButtonHtml()}
             <button class="icon-btn" id="closeSidebar" aria-label="Скрыть панель">${icon("panel")}</button>

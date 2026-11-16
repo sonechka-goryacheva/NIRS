@@ -4,7 +4,7 @@
  *
  * @typedef {{login: string, role: "guest"|"user"|"admin", created_at: string, last_login_at: string|null}} User
  *   guest — гостевой вход без регистрации (логин вида guest-xxxxxx), данные удаляются при выходе
- * @typedef {User & {chats_count: number, my_commands_count: number}} AdminUser
+ * @typedef {User & {chats_count: number}} AdminUser
  * @typedef {{key: string, label: string, count: number, personal?: boolean}} Category
  *   personal — «Мои команды» (key "my"): личный датасет пользователя
  * @typedef {{id: string, category: string, name: string, command: string, description: string,
@@ -18,7 +18,7 @@
  *   match — только при поиске (?q=): фрагмент сообщения с совпадением; null — совпало название
  * @typedef {ChatSummary & {messages: Message[]}} Chat
  */
-import { request } from "./http.js?v=202611160130";
+import { request } from "./http.js?v=202611161110";
 
 const enc = encodeURIComponent;
 
