@@ -8,5 +8,5 @@
  */
 export const CONFIG = {
   apiBase: "/api",
-  useMock: true,
+  useMock: false,
 };
