@@ -136,18 +136,26 @@ function appendMessage(m) {
 }
 
 function fillReply(node, reply) {
-  const body = $(".bot-body", node);
-  if (!reply) { body.innerHTML = '<div class="typing">Ищу <i></i><i></i><i></i></div>'; return; }
-  if (reply.type === "error") { body.innerHTML = `<div class="alert alert-error">${icon("alert")}<span>${esc(reply.message)}</span></div>`; return; }
-  if (reply.type === "not_found") {
-    // Варианты показываются, только если сервер нашёл хоть что-то по делу; иначе — одно сообщение
-    body.innerHTML = `<div class="alert alert-warn">${icon("alert")}<span>${esc(reply.message)}</span></div>` +
-      (reply.commands || []).map((c) => commandCard(c)).join("");
-    return;
-  }
-  const rel = reply.related || [];
-  body.innerHTML = reply.commands.map((c) => commandCard(c)).join("") +
-    (rel.length ? `<div class="related">Похожие: ${rel.map((c) => `<button type="button" class="chip chip-mono" data-related="${esc(JSON.stringify(c))}">${esc(c.command)}</button>`).join("")}</div>` : "");
+    const body = $(".bot-body", node);
+    if (!reply) { body.innerHTML = '<div class="typing">Ищу <i></i><i></i><i></i></div>'; return; }
+    if (reply.type === "error") { body.innerHTML = `<div class="alert alert-error">${icon("alert")}<span>${esc(reply.message)}</span></div>`; return; }
+
+    // Текст LLM (объяснение словами) — показываем первым, если он есть
+    const textBlock = reply.text
+        ? `<div class="llm-text" style="margin:0 0 12px;line-height:1.5;white-space:pre-wrap;">${esc(reply.text)}</div>`
+        : "";
+
+    if (reply.type === "not_found") {
+        // Варианты показываются, только если сервер нашёл хоть что-то по делу; иначе — одно сообщение
+        body.innerHTML = textBlock +
+            `<div class="alert alert-warn">${icon("alert")}<span>${esc(reply.message || "")}</span></div>` +
+            (reply.commands || []).map((c) => commandCard(c)).join(" ");
+        return;
+    }
+    const rel = reply.related || [];
+    body.innerHTML = textBlock +
+        reply.commands.map((c) => commandCard(c)).join(" ") +
+        (rel.length ? `<div class="related">Похожие: ${rel.map((c) => `<button type="button" class="chip chip-mono" data-related="${esc(JSON.stringify(c))}">${esc(c.command)}</button>`).join("")}</div>` : "");
 }
 
 async function send() {
