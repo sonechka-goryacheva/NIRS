@@ -231,6 +231,69 @@
 .cat-card b { font-size: 1rem; font-weight: 600; }
 .cat-card span { font-size: 0.875rem; color: var(--text-3); margin-top: -0.625rem; }
 
+
+/* Стили для кнопки прикрепления файла */
+.attach-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-secondary); /* или какой у вас цвет иконок */
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s;
+  flex-shrink: 0; /* чтобы не сжималась */
+}
+
+.attach-btn:hover {
+  background-color: var(--color-bg-hover);
+  color: var(--color-primary);
+}
+
+/* Убедитесь, что composer использует flex для выравнивания элементов в ряд */
+.composer {
+  display: flex;
+  align-items: flex-end; /* выравнивание по низу, если textarea растет */
+  gap: 8px;
+  padding: 8px;
+  /* остальные ваши стили */
+}
+
+
+/* Желтая рамка предупреждения (как в feature/web-frontend) */
+.alert-warn {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--r-sm); /* Обычно это 0.5rem или 8px */
+    
+    /* Полупрозрачный желтый фон */
+    background: var(--warn-soft); 
+    border: 1px solid var(--warn-border);
+    color: var(--alert-warn-text);
+    
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+/* Иконка внутри рамки */
+.alert-warn svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex: none;
+    margin-top: 0.125rem;
+    opacity: 0.9;
+}
+
+
+/* Стили для textarea, чтобы она занимала доступное место */
+.composer textarea {
+  flex-grow: 1;
+  /* остальные стили */
+}
+
 /* Списки и поиск */
 .list-tools { display: flex; gap: 0.625rem; margin-bottom: 0.875rem; }
 .search-wrap { position: relative; flex: 1; }

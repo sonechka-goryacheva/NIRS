@@ -3,3 +3,8 @@ openai
 python-dotenv
 pytest
 pyinstaller
+easyocr
+torch
+torchvision
+Pillow
+python-multipart

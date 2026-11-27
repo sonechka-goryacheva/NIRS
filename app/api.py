@@ -878,10 +878,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
+
 from fastapi import APIRouter, FastAPI, HTTPException, Request, Response
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+from fastapi import UploadFile, File
+from app.ocr import extract_text_from_image
 
 from app.search import Searcher, get_engine
 from app.llm import ask_llm
@@ -1375,6 +1378,8 @@ def search_and_answer(query: str, user_login: Optional[str], chat_history: list[
         "text": text,
     }
 
+
+
 @api.get("/chats")
 async def chats_list(request: Request, q: Optional[str] = None):
     u = require_auth(request)
@@ -1456,7 +1461,66 @@ async def chat_message(chat_id: str, req: ChatMsgReq, request: Request):
         "chat": {"id": c["id"], "title": c["title"], "created_at": c["created_at"], "updated_at": c["updated_at"]},
         "messages": [um, bm]
     }
-
+@api.post("/chats/{chat_id}/upload-image", status_code=201)
+async def chat_upload_image(
+    chat_id: str, 
+    request: Request, 
+    file: UploadFile = File(...)
+):
+    """
+    Загрузка изображения с текстом команды/ошибки.
+    Извлекает текст через OCR и использует его как запрос к поиску.
+    """
+    u = require_auth(request)
+    
+    # Проверяем чат
+    c = next((x for x in store.chats if x["id"] == chat_id and x["owner"] == u["login"]), None)
+    if not c:
+        raise HTTPException(status_code=404, detail="Чат не найден")
+    
+    # Проверяем тип файла
+    if not file.content_type or not file.content_type.startswith('image/'):
+        raise HTTPException(status_code=400, detail="Загрузите изображение (PNG, JPEG)")
+    
+    # Читаем файл
+    image_bytes = await file.read()
+    if len(image_bytes) > 5 * 1024 * 1024:  # 5 MB лимит
+        raise HTTPException(status_code=400, detail="Изображение слишком большое (максимум 5 МБ)")
+    
+    # Извлекаем текст через OCR
+    extracted_text = extract_text_from_image(image_bytes)
+    
+    if not extracted_text:
+        raise HTTPException(status_code=400, detail="Не удалось распознать текст на изображении")
+    
+    # Используем извлечённый текст как запрос
+    reply = search_and_answer(extracted_text, u["login"], chat_history=c["messages"])
+    
+    # Создаём сообщения
+    um = {
+        "id": f"m-{random.randint(100000, 999999)}", 
+        "role": "user", 
+        "text": f"[Изображение] {extracted_text[:100]}...",
+        "created_at": now_iso(),
+        "has_image": True
+    }
+    
+    bm = {
+        "id": f"m-{random.randint(100000, 999999)}", 
+        "role": "assistant", 
+        "reply": reply, 
+        "created_at": now_iso()
+    }
+    
+    c["messages"].extend([um, bm])
+    c["updated_at"] = now_iso()
+    store._save()
+    
+    return {
+        "chat": {"id": c["id"], "title": c["title"], "created_at": c["created_at"], "updated_at": c["updated_at"]},
+        "messages": [um, bm],
+        "extracted_text": extracted_text
+    }
 @api.patch("/chats/{chat_id}")
 async def chat_rename(chat_id: str, req: ChatTitleReq, request: Request):
     u = require_auth(request)

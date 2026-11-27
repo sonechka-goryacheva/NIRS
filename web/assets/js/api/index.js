@@ -94,6 +94,31 @@ export const chatsApi = {
   /** Следующее сообщение в чате. @returns {Promise<{chat: ChatSummary, messages: Message[]}>} */
   send: (id, message) => request("POST", `/chats/${enc(id)}/messages`, { body: { message } }),
   /** @returns {Promise<ChatSummary>} */
+
+  // 👇 ДОБАВИТЬ ЭТОТ МЕТОД ЗДЕСЬ 👇
+  /** Загрузка изображения для OCR. @returns {Promise<{chat: ChatSummary, messages: Message[], extracted_text: string}>} */
+  uploadImage: async (id, file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    // Используем fetch напрямую, так как стандартный request() ожидает JSON
+    const response = await fetch(`/api/chats/${enc(id)}/upload-image`, {
+      method: 'POST',
+      body: formData,
+      credentials: 'include' // Обязательно: отправляет cookie сессии
+    });
+    
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({ detail: 'Ошибка сети' }));
+      throw new Error(err.detail || 'Ошибка загрузки изображения');
+    }
+    
+    return response.json();
+  },
+  // 👆 КОНЕЦ ДОБАВЛЕННОГО МЕТОДА 👆
+
+
+
   rename: (id, title) => request("PATCH", `/chats/${enc(id)}`, { body: { title } }),
   remove: (id) => request("DELETE", `/chats/${enc(id)}`),
 };
