@@ -45,12 +45,37 @@ PROMPT = """Ты — справочник IT-команд. Отвечай ТОЛ
 
 NOTHING_FOUND = "Подходящая команда не найдена. Попробуйте описать задачу иначе — например, укажите операционную систему."
 
+ARTICLE_NOTHING = "В документах другой команды нет ответа на этот вопрос."
+
+ARTICLE_PROMPT = """Ты отвечаешь по документам другой команды. Пиши по-русски.
+
+Вопрос: {query}
+
+Документы:
+{context}
+
+Напиши ответ на вопрос своими словами, 4–6 предложений.
+Используй только факты из этих документов.
+Не упоминай терминал, командную строку и IT-команды.
+Не придумывай калории, дозы, диагнозы, меню и персональные нормы, которых нет в тексте.
+Если точного ответа в документах нет, прямо напиши, что в документах этого нет.
+В конце одна строка: Источники: [ID], [ID].
+"""
+
+
+def is_article(docs) -> bool:
+    """Документы другой команды, а не команды справочника."""
+    return any(d.get("category") == "team" for d in docs)
+
 
 def build_context(docs):
     if not docs:
         return "(ничего не найдено)"
     lines = []
     for d in docs:
+        if d.get("category") == "team":
+            lines.append(f"[{d.get('id')}] {d.get('name', '')}\n{d.get('description', '')}")
+            continue
         block = [
             f"[{d['id']}] {d.get('name', '')}",
             f"Команда: {d.get('command', '')}",
@@ -78,7 +103,13 @@ def build_history(messages, max_messages=6):
 
 def _stub_answer(query, docs, kind="found"):
     if not docs:
-        return NOTHING_FOUND
+        return ARTICLE_NOTHING if kind == "nothing" else NOTHING_FOUND
+    if is_article(docs):
+        src = "Источники: " + ", ".join(f"[{d.get('id')}]" for d in docs if d.get("id"))
+        text = "\n\n".join(d.get("description", "") for d in docs if d.get("category") == "team")
+        if kind == "similar":
+            text = ARTICLE_NOTHING + "\n\n" + text
+        return text + ("\n\n" + src if src else "")
     parts = []
     for d in docs:
         parts.append(
@@ -90,6 +121,8 @@ def _stub_answer(query, docs, kind="found"):
 
 
 def _make_prompt(query, docs, history, kind):
+    if is_article(docs):
+        return ARTICLE_PROMPT.format(query=query, context=build_context(docs))
     return PROMPT.format(
         query=query,
         context=build_context(docs),
@@ -104,7 +137,7 @@ def _ollama_answer(query, docs, history, kind="found"):
         model=OLLAMA_MODEL,
         messages=[{"role": "user", "content": _make_prompt(query, docs, history, kind)}],
         temperature=0.2,
-        max_tokens=80,
+        max_tokens=700 if is_article(docs) else 80,
         timeout=120,
     )
     return r.choices[0].message.content.strip()
@@ -120,7 +153,7 @@ def _real_answer(query, docs, history, kind="found"):
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": _make_prompt(query, docs, history, kind)}],
         temperature=0.2,
-        max_tokens=80,
+        max_tokens=700 if is_article(docs) else 80,
         timeout=30,
     )
     return r.choices[0].message.content.strip()

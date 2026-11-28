@@ -908,6 +908,7 @@ CATEGORIES = {
     "linux": "Linux", "mac": "macOS", "windows": "Windows",
     "git": "Git", "docker": "Docker", "sql": "SQL",
     "python": "Python", "network": "Сеть", "powershell": "PowerShell",
+    "team": "Документы команды",
 }
 PLATFORMS = ["linux", "mac", "windows", "unix", "cross"]
 

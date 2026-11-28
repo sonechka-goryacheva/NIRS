@@ -1,7 +1,7 @@
 // /** Чат: маршруты #/chat и #/chat/:id */
 // import { $, h, esc, setTitle } from "../ui/dom.js?v=202611161110";
 // import { icon } from "../ui/icons.js?v=202611161110";
-// import { commandCard } from "../ui/command-card.js?v=202611161110";
+// import { commandCard } from "../ui/command-card.js?v=202611281130";
 // import { chatsApi } from "../api/index.js?v=202611161110";
 // import * as router from "../router.js?v=202611161110";
 // import { getCategories } from "./categories.js?v=202611161110";
@@ -319,7 +319,7 @@
 /** Чат: маршруты #/chat и #/chat/:id */
 import { $, h, esc, setTitle } from "../ui/dom.js?v=202611161110";
 import { icon } from "../ui/icons.js?v=202611161110";
-import { commandCard } from "../ui/command-card.js?v=202611161110";
+import { commandCard } from "../ui/command-card.js?v=202611281130";
 import { chatsApi } from "../api/index.js?v=202611161110";
 import * as router from "../router.js?v=202611161110";
 import { getCategories } from "./categories.js?v=202611161110";

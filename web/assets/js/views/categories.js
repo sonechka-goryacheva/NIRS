@@ -1,6 +1,6 @@
 /** Кэш категорий (нужны в датасете, админке и подписях карточек). */
 import { datasetApi } from "../api/index.js?v=202611161110";
-import { setCategoryLabels } from "../ui/command-card.js?v=202611161110";
+import { setCategoryLabels } from "../ui/command-card.js?v=202611281130";
 import { session } from "../session.js?v=202611161110";
 
 let cache = null;

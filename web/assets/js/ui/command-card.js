@@ -10,6 +10,8 @@ const codeLine = (text, label) =>
   `<div class="code"><span>${esc(text)}</span><button type="button" class="icon-btn copy-btn" data-copy="${esc(text)}" aria-label="${label}">${icon("copy")}</button></div>`;
 
 export function commandCard(c, { tags = false } = {}) {
+  const article = c.category === "team";
+  const examples = (c.examples || []).slice(0, 3);
   return `<article class="cmd-card">
     <header class="cmd-head">
       <h3 class="cmd-name">${esc(c.name)}</h3>
@@ -18,12 +20,12 @@ export function commandCard(c, { tags = false } = {}) {
         <span class="chip chip-mono">${esc(c.platform)}</span>
       </div>
     </header>
-    <div class="cmd-label">Команда</div>
-    ${codeLine(c.command, "Скопировать команду")}
-    <div class="cmd-label">Описание</div>
+    <div class="cmd-label">${article ? "Документ" : "Команда"}</div>
+    ${codeLine(c.command, article ? "Скопировать номер документа" : "Скопировать команду")}
+    <div class="cmd-label">${article ? "Текст" : "Описание"}</div>
     <p class="cmd-desc">${esc(c.description)}</p>
-    <div class="cmd-label">Примеры применения</div>
-    <div class="cmd-examples">${(c.examples || []).slice(0, 3).map((x) => codeLine(x, "Скопировать пример")).join("")}</div>
+    ${examples.length ? `<div class="cmd-label">Примеры применения</div>
+    <div class="cmd-examples">${examples.map((x) => codeLine(x, "Скопировать пример")).join("")}</div>` : ""}
     ${tags && c.tags?.length ? `<div class="tag-row">${c.tags.map((t) => `<span class="chip">#${esc(t)}</span>`).join("")}</div>` : ""}
   </article>`;
 }
